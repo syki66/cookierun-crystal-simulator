@@ -14,8 +14,15 @@ int main(void)
 	double one_click_crystal_get = crystal_treasure_get_probability * crystal_treasure_expectation_avg; /*6+1클릭시 크리스탈 얻는 기댓값*/
 	double rest_oneday_crystal = 0;
 
-	printf("주의사항:119이상을 입력하면 값이 정확하지 않음\n");
-	printf("하루평균 버는 크리스탈량 기댓값(출석체크 1크리스탈 포함해서 입력 ㄱㄱ):");
+	printf("              ※※※※※※\n");
+	printf("※※※※※※※※주의사항※※※※※※※※※※\n");
+	printf("※ 119이상을 입력하면 값이 정확하지 않음  ※\n");
+	printf("※         매일 출첵했을때 기준           ※\n");
+	printf("※출석체크시 1크리스탈 받는 거 포함해야됨 ※\n");
+	printf("※  6+1 스페셜 최고급보물상자패키지기준임 ※\n");
+	printf("※   120개 모였을때 바로 쓰는거 기준ㅇㅇ  ※\n");
+	printf("※※※※※※※※※※※※※※※※※※※※※※\n\n");
+	printf("하루평균 버는 크리스탈량 기댓값:");
 	scanf_s("%lf", &oneday_crystal);
 
 	while (sum_oneday_crystal<119)
@@ -29,7 +36,8 @@ int main(void)
 		days++;
 	}
 
-	printf("%d일 후에 하루에 한번씩 6+1뽑을수 있음 수고봉~", days);
+	printf("★★★★%d일 후★★★★에 하루에 스페셜패키지 1개씩 GET\n", days);
+	printf("★★★%d개월 %d일★★★\n\n", days / 30, days % 30);
 
 		return 0;
 }
