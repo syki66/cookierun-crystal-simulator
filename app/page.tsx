@@ -6,7 +6,7 @@ export default async function Home() {
   let crystalsPerDay = 100; // 하루당 크리스탈 기댓값
   let crystals = 0; // 현재 보유한 크리스탈 개수
 
-  const multiLootboxData = await getFileData('/app/data/multiLootboxData.json'); // 6+1개 세트 구매했을때의 S보물 및 A보물 등장 확률 데이터
+  const multiLootboxData = await getFileData('/data/multiLootboxData.json'); // 6+1개 세트 구매했을때의 S보물 및 A보물 등장 확률 데이터
 
   for (let i = 0; i < 100; i++) {
     crystals += crystalsPerDay; // 하루당 크리스탈 획득
