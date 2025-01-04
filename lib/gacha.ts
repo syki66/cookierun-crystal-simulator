@@ -20,7 +20,7 @@ const getWeightedTotal = (items: itemProps[]) =>
   items.reduce((sum: number, item: itemProps) => sum + item.weight, 0);
 
 // 가챠 뽑기 함수
-export const getPickedItem = async (lootboxData: itemProps[]) => {
+export const getPickedItem = (lootboxData: itemProps[]) => {
   const pickedItem = pickItemFromWeightedRandom(
     lootboxData,
     getWeightedTotal(lootboxData)
