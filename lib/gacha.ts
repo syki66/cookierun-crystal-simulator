@@ -1,5 +1,4 @@
 import { itemProps } from '@/types/item';
-import { getFileData } from '@/lib/api';
 
 // 가중치에 따라 랜덤으로 항목을 선택해서 이름을 반환하는 함수
 const pickItemFromWeightedRandom = (
@@ -21,8 +20,7 @@ const getWeightedTotal = (items: itemProps[]) =>
   items.reduce((sum: number, item: itemProps) => sum + item.weight, 0);
 
 // 가챠 뽑기 함수
-export const getPickedItem = async (path: string) => {
-  const lootboxData = await getFileData(path);
+export const getPickedItem = async (lootboxData: itemProps[]) => {
   const pickedItem = pickItemFromWeightedRandom(
     lootboxData,
     getWeightedTotal(lootboxData)

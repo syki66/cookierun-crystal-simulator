@@ -1,4 +1,9 @@
 import { getPickedItem } from '@/lib/gacha';
+import {
+  multiLootboxData,
+  lootboxDataAGrade,
+  lootboxDataSGrade,
+} from '@/data/lootboxData';
 
 export default async function Home() {
   let crystalsPerDay = 100; // 하루당 크리스탈 기댓값
@@ -12,20 +17,20 @@ export default async function Home() {
       crystals -= 335;
 
       const pickedMultiLootbox = await getPickedItem(
-        '/data/multiLootboxData.json' // 최고급 보물 상자 6+1개 세트 뽑기 데이터
+        multiLootboxData // 최고급 보물 상자 6+1개 세트 뽑기 데이터
       );
 
       // 6+1세트 구매시 S보물 및 A보물 등장 확률별 분기 처리
       switch (pickedMultiLootbox) {
         case 'S등급 보물 3개 + A등급 보물 4개':
           const [S1, S2, S3, A1, A2, A3, A4] = await Promise.all([
-            getPickedItem('/data/lootboxDataSGrade.json'),
-            getPickedItem('/data/lootboxDataSGrade.json'),
-            getPickedItem('/data/lootboxDataSGrade.json'),
-            getPickedItem('/data/lootboxDataAGrade.json'),
-            getPickedItem('/data/lootboxDataAGrade.json'),
-            getPickedItem('/data/lootboxDataAGrade.json'),
-            getPickedItem('/data/lootboxDataAGrade.json'),
+            getPickedItem(lootboxDataSGrade),
+            getPickedItem(lootboxDataSGrade),
+            getPickedItem(lootboxDataSGrade),
+            getPickedItem(lootboxDataAGrade),
+            getPickedItem(lootboxDataAGrade),
+            getPickedItem(lootboxDataAGrade),
+            getPickedItem(lootboxDataAGrade),
           ]);
           console.log(S1, S2, S3, A1, A2, A3, A4);
           break;
