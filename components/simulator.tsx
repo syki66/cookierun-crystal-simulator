@@ -6,6 +6,7 @@ import { gachaMachine } from '@/lib/gacha';
 import { inventoryProps } from '@/types/inventory';
 import Inventory from './inventory/inventory';
 import { splitArrayByCrystalKeyword } from '@/lib/split';
+import CrystalChart from './crystal-chart';
 
 const Simulator: React.FC = () => {
   const [crystals, setCrystals] = useState(0); // 현재 보유한 크리스탈 개수
@@ -14,8 +15,10 @@ const Simulator: React.FC = () => {
   const [inventory, setInventory] = useState<inventoryProps[]>([
     { name: '기타 크리스탈 보유효과 보물', count: 1, expectedValue: 10 },
   ]); // 보물 별 수량 데이터
+  const [chartData, setChartData] = useState<chartDataProps[]>([]);
 
   useEffect(() => {
+    const _chartData: chartDataProps[] = []; // 차트 시각화용 데이터 수집
     let _inventory: inventoryProps[] = [
       { name: '기타 크리스탈 보유효과 보물들', count: 1, expectedValue: 10 },
     ];
@@ -45,11 +48,19 @@ const Simulator: React.FC = () => {
       _inventory = updatedInventory;
       _crystals = updatedCrystals;
 
+      // 차트용 데이터 수집
+      _chartData.push({
+        date: `날짜: ${_date}`,
+        crystals: _crystalsPerDay,
+      });
+
       setDate(_date);
       setCrystals(_crystals);
       setCrystalsPerDay(_crystalsPerDay);
       setInventory(_inventory);
-    }, 1000);
+
+      setChartData(_chartData); // 차트용 데이터 업데이트
+    }, 100);
 
     return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 clearInterval
   }, []);
@@ -60,6 +71,7 @@ const Simulator: React.FC = () => {
       <div>일수 : {date}</div>
       <div>크리스탈 보유효과 : {crystalsPerDay}</div>
       <div>현재 크리스탈 개수 : {crystals}</div>
+      <CrystalChart chartData={chartData} />
       <Inventory items={splitArrayByCrystalKeyword(inventory)} />
     </>
   );
