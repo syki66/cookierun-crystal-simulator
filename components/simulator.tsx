@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 
 import { gachaMachine } from '@/lib/gacha';
 import { inventoryProps } from '@/types/inventory';
-import Inventory from './inventory';
-import { moveCrystalToFront } from '@/lib/sort';
+import Inventory from './inventory/inventory';
+import { splitArrayByCrystalKeyword } from '@/lib/split';
 
 const Simulator: React.FC = () => {
   const [crystals, setCrystals] = useState(0); // 현재 보유한 크리스탈 개수
@@ -60,7 +60,7 @@ const Simulator: React.FC = () => {
       <div>일수 : {date}</div>
       <div>크리스탈 보유효과 : {crystalsPerDay}</div>
       <div>현재 크리스탈 개수 : {crystals}</div>
-      <Inventory items={moveCrystalToFront(inventory)} />
+      <Inventory items={splitArrayByCrystalKeyword(inventory)} />
     </>
   );
 };
