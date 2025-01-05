@@ -12,9 +12,10 @@ interface InventoryProps {
 const Inventory: React.FC<InventoryProps> = ({ items }) => {
   return (
     <>
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-4 justify-center">
         {items.crystalItems.map((item: inventoryProps) => (
           <SpecialCard
+            key={item.name}
             name={item.name}
             count={item.count}
             expectedValue={item.expectedValue}
@@ -22,9 +23,9 @@ const Inventory: React.FC<InventoryProps> = ({ items }) => {
         ))}
       </div>
 
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap gap-4 justify-center">
         {items.nonCrystalItems.map((item: inventoryProps) => (
-          <RegularCard name={item.name} count={item.count} />
+          <RegularCard key={item.name} name={item.name} count={item.count} />
         ))}
       </div>
     </>

@@ -18,7 +18,7 @@ const RegularCard: React.FC<RegularCardProps> = ({ name, count }) => {
         <CardTitle className="text-sm font-bold text-center mb-auto">
           {name}
         </CardTitle>
-        <p className="text-xl font-bold">{count}</p>
+        <p className="text-xl font-bold">{count.toLocaleString()}</p>
         {
           <CardDescription className="text-center text-[8px] line-clamp-2">
             {''}

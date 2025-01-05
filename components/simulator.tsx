@@ -49,7 +49,7 @@ const Simulator: React.FC = () => {
       setCrystals(_crystals);
       setCrystalsPerDay(_crystalsPerDay);
       setInventory(_inventory);
-    }, 1110);
+    }, 1000);
 
     return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 clearInterval
   }, []);
