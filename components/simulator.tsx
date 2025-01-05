@@ -50,7 +50,7 @@ const Simulator: React.FC = () => {
 
       // 차트용 데이터 수집
       _chartData.push({
-        date: `날짜: ${_date}`,
+        date: `${_date}`,
         crystals: _crystalsPerDay,
       });
 
@@ -59,7 +59,13 @@ const Simulator: React.FC = () => {
       setCrystalsPerDay(_crystalsPerDay);
       setInventory(_inventory);
 
-      setChartData(_chartData); // 차트용 데이터 업데이트
+      // 차트용 데이터 업데이트
+      setChartData((prevChartData) => {
+        return [
+          ...prevChartData,
+          { date: `${_date}`, crystals: _crystalsPerDay },
+        ];
+      });
     }, 100);
 
     return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 clearInterval

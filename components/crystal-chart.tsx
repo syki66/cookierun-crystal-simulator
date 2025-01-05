@@ -27,9 +27,6 @@ type CrystalChartProp = {
 };
 
 export default function CrystalChart({ chartData }: CrystalChartProp) {
-  useEffect(() => {
-    console.log(chartData);
-  });
   return (
     <Card>
       <CardHeader>
@@ -66,7 +63,7 @@ export default function CrystalChart({ chartData }: CrystalChartProp) {
               stroke="var(--color-crystals)"
               strokeWidth={2}
               dot={false}
-              name="하루당 크리스탈 기댓값"
+              name="기댓값"
             />
           </LineChart>
         </ChartContainer>
