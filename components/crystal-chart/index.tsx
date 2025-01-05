@@ -52,10 +52,7 @@ export default function CrystalChart({ chartData }: CrystalChartProp) {
               tickFormatter={(value) => value.slice(0, 3)}
             />
             <YAxis />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
             <Legend />
             <Line
               dataKey="crystals"

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import { gachaMachine } from '@/lib/gacha';
 import { inventoryProps } from '@/types/inventory';
-import Inventory from './inventory/inventory';
+import Inventory from './inventory';
 import { splitArrayByCrystalKeyword } from '@/lib/split';
 import CrystalChart from './crystal-chart';
 
@@ -35,7 +35,7 @@ const Simulator: React.FC = () => {
           return sum + item.count * item.expectedValue;
         }
         return sum; // "크리스탈"이 포함되지 않은 경우 기존 sum 반환
-      }, 200); // 초기값;
+      }, 320); // 초기값;
 
       _crystals += _crystalsPerDay;
 
@@ -60,20 +60,21 @@ const Simulator: React.FC = () => {
       setInventory(_inventory);
 
       // 차트용 데이터 업데이트
-      setChartData((prevChartData) => {
-        return [
-          ...prevChartData,
-          { date: `${_date}`, crystals: _crystalsPerDay },
-        ];
-      });
-    }, 100);
+      if (_date % 10 === 0) {
+        setChartData((prevChartData) => {
+          return [
+            ...prevChartData,
+            { date: `${_date}`, crystals: _crystalsPerDay },
+          ];
+        });
+      }
+    }, 1000);
 
     return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 clearInterval
   }, []);
 
   return (
     <>
-      <h1>Simulator</h1>
       <div>일수 : {date}</div>
       <div>크리스탈 보유효과 : {crystalsPerDay}</div>
       <div>현재 크리스탈 개수 : {crystals}</div>
