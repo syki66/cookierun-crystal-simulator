@@ -7,6 +7,7 @@ import { inventoryProps } from '@/types/inventory';
 import Inventory from './inventory';
 import { splitArrayByCrystalKeyword } from '@/lib/split';
 import CrystalChart from './crystal-chart';
+import DashboardCard from './crystal-chart/dashboard-card';
 
 const Simulator: React.FC = () => {
   const [crystals, setCrystals] = useState(0); // 현재 보유한 크리스탈 개수
@@ -75,9 +76,15 @@ const Simulator: React.FC = () => {
 
   return (
     <>
-      <div>일수 : {date}</div>
-      <div>크리스탈 보유효과 : {crystalsPerDay}</div>
-      <div>현재 크리스탈 개수 : {crystals}</div>
+      <div className="flex flex-wrap gap-4 justify-center mb-5">
+        <DashboardCard title="D+??" description={date} />
+        <DashboardCard title="날짜" description={date} />
+        <DashboardCard
+          title="하루당 크리스탈 획득량"
+          description={crystalsPerDay}
+        />
+        <DashboardCard title="현재 크리스탈 개수" description={crystals} />
+      </div>
       <CrystalChart chartData={chartData} />
       <Inventory items={splitArrayByCrystalKeyword(inventory)} />
     </>
