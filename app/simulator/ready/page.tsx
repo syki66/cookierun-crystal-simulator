@@ -98,7 +98,9 @@ export default function InputForm() {
             name="date"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>시작 날짜</FormLabel>
+                <FormLabel>
+                  시작 날짜 <span className="text-red-500">*</span>
+                </FormLabel>
                 <Popover>
                   <PopoverTrigger asChild>
                     <FormControl>
@@ -161,7 +163,9 @@ export default function InputForm() {
             name="currentCrystals"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>크리스탈</FormLabel>
+                <FormLabel>
+                  크리스탈 <span className="text-red-500">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="크리스탈 개수 입력"
@@ -191,7 +195,9 @@ export default function InputForm() {
             name="threshold"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>보물상자 개봉량</FormLabel>
+                <FormLabel>
+                  보물상자 개봉량 <span className="text-red-500">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="현재 보유중인 크리스탈 개수 입력"
@@ -222,7 +228,9 @@ export default function InputForm() {
             name="skip"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>그래프 간소화</FormLabel>
+                <FormLabel>
+                  그래프 간소화 <span className="text-red-500">*</span>
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="건너뛸 데이터량 입력"
@@ -254,7 +262,9 @@ export default function InputForm() {
             name="speed"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>시뮬레이션 배속</FormLabel>
+                <FormLabel>
+                  시뮬레이션 배속 <span className="text-red-500">*</span>
+                </FormLabel>
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
