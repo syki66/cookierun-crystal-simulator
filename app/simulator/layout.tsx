@@ -1,0 +1,16 @@
+import { ReactNode } from 'react';
+
+interface LayoutProps {
+  children: ReactNode;
+}
+
+export default function Layout({ children }: LayoutProps) {
+  return (
+    <>
+      <h1 className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-center my-5">
+        쿠키런 크리스탈 보물 뽑기 시뮬레이터
+      </h1>
+      {children}
+    </>
+  );
+}
