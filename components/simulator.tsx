@@ -8,10 +8,15 @@ import Inventory from './inventory';
 import { splitArrayByCrystalKeyword } from '@/lib/split';
 import CrystalChart from './crystal-chart';
 import DashboardCard from './crystal-chart/dashboard-card';
+import { initDataParams } from '@/types/params';
 
-const Simulator: React.FC = () => {
-  const [crystals, setCrystals] = useState(0); // 현재 보유한 크리스탈 개수
-  const [crystalsPerDay, setCrystalsPerDay] = useState(100); // 하루당 크리스탈 획득 기댓값
+interface SimulatorProps {
+  initData: initDataParams;
+}
+
+const Simulator = ({ initData }: SimulatorProps) => {
+  const [crystals, setCrystals] = useState(initData.currentCrystals); // 현재 보유한 크리스탈 개수
+  const [crystalsPerDay, setCrystalsPerDay] = useState(initData.crystalsPerDay); // 하루당 크리스탈 획득 기댓값
   const [date, setDate] = useState(0); // 현재 날짜
   const [inventory, setInventory] = useState<inventoryProps[]>([
     { name: '기타 크리스탈 보유효과 보물', count: 1, expectedValue: 10 },
@@ -23,10 +28,10 @@ const Simulator: React.FC = () => {
     let _inventory: inventoryProps[] = [
       { name: '기타 크리스탈 보유효과 보물들', count: 1, expectedValue: 10 },
     ];
-    let _crystals = 0;
-    let _crystalsPerDay = 0;
+    let _crystals = initData.currentCrystals;
+    let _crystalsPerDay = initData.crystalsPerDay;
     let _date = 0;
-    const threshold = 3; // 한번에 오픈할 개수
+    const threshold = initData.threshold; // 한번에 오픈할 개수
     const _crystalsThreshold = 119 + 108 * (threshold - 1); // 1회 오픈 시 크리스탈 소모량
 
     const intervalId = setInterval(() => {
@@ -61,7 +66,7 @@ const Simulator: React.FC = () => {
       setInventory(_inventory);
 
       // 차트용 데이터 업데이트
-      if (_date % 10 === 0) {
+      if (_date % initData.skip === 0) {
         setChartData((prevChartData) => {
           return [
             ...prevChartData,
@@ -69,7 +74,7 @@ const Simulator: React.FC = () => {
           ];
         });
       }
-    }, 1000);
+    }, 1000 / initData.speed);
 
     return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 clearInterval
   }, []);
