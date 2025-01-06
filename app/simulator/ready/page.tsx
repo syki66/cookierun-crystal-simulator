@@ -53,7 +53,8 @@ const FormSchema = z.object({
       required_error: '1회 개봉량을 필수로 입력해야 합니다.',
       invalid_type_error: '자연수를 입력해야 합니다.',
     })
-    .int(),
+    .int()
+    .min(1, { message: '1 이상 입력해주세요.' }),
   skip: z
     .number({
       required_error: '데이터 간격을 필수로 입력해야 합니다.',
