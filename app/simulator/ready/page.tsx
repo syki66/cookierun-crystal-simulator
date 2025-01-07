@@ -69,13 +69,9 @@ const FormSchema = z.object({
       invalid_type_error: '자연수를 입력해야 합니다.',
     })
     .int(),
-  threshold: z
-    .number({
-      required_error: '1회 개봉량을 필수로 입력해야 합니다.',
-      invalid_type_error: '자연수를 입력해야 합니다.',
-    })
-    .int()
-    .min(1, { message: '1 이상 입력해주세요.' }),
+  threshold: z.string({
+    required_error: '트리거 개수를 필수로 입력해야 합니다.',
+  }),
   skip: z
     .number({
       required_error: '데이터 간격을 필수로 입력해야 합니다.',
@@ -95,9 +91,9 @@ export default function InputForm() {
     defaultValues: {
       date: new Date(),
       currentCrystals: 0,
-      crystals: '21,19,19,22,20,29,13,97,36',
+      crystals: '0,0,0,0,0,0,0,0,0',
       defaultCrystal: '10.35',
-      threshold: 3,
+      threshold: '3',
       skip: 1,
       speed: '1',
     },
@@ -260,22 +256,29 @@ export default function InputForm() {
                   보물상자 오픈 트리거가 발동되기 위한 크리스탈 개수
                   <span className="text-red-500">*</span>
                 </FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="현재 보유중인 크리스탈 개수 입력"
-                    {...field}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      field.onChange(
-                        value === ''
-                          ? ''
-                          : isNaN(Number(value))
-                          ? value
-                          : Number(value)
-                      );
-                    }}
-                  />
-                </FormControl>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="역치값 선택" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="1">119</SelectItem>
+                    <SelectItem value="2">227</SelectItem>
+                    <SelectItem value="3">335</SelectItem>
+                    <SelectItem value="4">443</SelectItem>
+                    <SelectItem value="5">551</SelectItem>
+                    <SelectItem value="6">659</SelectItem>
+                    <SelectItem value="7">767</SelectItem>
+                    <SelectItem value="8">875</SelectItem>
+                    <SelectItem value="9">983</SelectItem>
+                    <SelectItem value="10">1091</SelectItem>
+                    <SelectItem value="11">1199</SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormDescription>
                   크리스탈이 몇개가 넘을 경우 보물상자를 오픈할지 입력해주세요.
                 </FormDescription>
@@ -317,7 +320,6 @@ export default function InputForm() {
             )}
           />
 
-          {/** select는 string으로 값이 넘어오는데 쿼리스트링으로 값을 넘길거라 굳이 타입 변환 하지 않음 */}
           <FormField
             control={form.control}
             name="speed"
