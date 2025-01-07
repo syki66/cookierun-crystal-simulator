@@ -131,9 +131,10 @@ export const gachaMachine = (
         inventory.push({
           name: pickedItem,
           count: 1,
-          expectedValue: [...lootboxDataSGrade, ...lootboxDataAGrade].find(
-            (x) => x.name === pickedItem
-          )?.expectedValue,
+          expectedValue:
+            [...lootboxDataSGrade, ...lootboxDataAGrade].find(
+              (x) => x.name === pickedItem
+            )?.expectedValue || 0,
         });
       } else {
         inventory[foundIndex].count++;
@@ -142,4 +143,51 @@ export const gachaMachine = (
   }
 
   return { updatedCrystals, inventory };
+};
+
+// 초기 인벤토리 데이터  생성 함수
+export const initInventoryData = (
+  crystals: number[],
+  defaultCrystal: number
+) => {
+  const names = [
+    '레어 크리스탈 사파이어',
+    '희귀한 크리스탈 조개',
+    '커다란 크리스탈 원석',
+    '최고급 크리스탈 보석함',
+    '청명한 크리스탈 자명종',
+    '왕 크리스탈 보석반지',
+    '장식용 크리스탈 포크스푼',
+    '마음에 품은 신성한 크리스탈 검',
+    '진주 크리스탈 귀걸이',
+  ];
+
+  const initialInventory = names.map((name, index) => ({
+    name,
+    count: crystals[index],
+    expectedValue:
+      [...lootboxDataSGrade, ...lootboxDataAGrade].find((x) => x.name === name)
+        ?.expectedValue || 0,
+  }));
+
+  initialInventory.push({
+    name: '기타 크리스탈 보물',
+    count: 1,
+    expectedValue: defaultCrystal,
+  });
+
+  return initialInventory;
+};
+
+// 인벤토리와 기본값을 이용하여 하루 당 받을 수 있는 크리스탈 기댓값 반환
+export const getCrystalsPerDay = (
+  inventory: inventoryProps[],
+  defaultCrystal: number
+) => {
+  return inventory.reduce((sum, item) => {
+    if (item.name.includes('크리스탈') && item.expectedValue) {
+      return sum + item.count * item.expectedValue;
+    }
+    return sum; // "크리스탈"이 포함되지 않은 경우 기존 sum 반환
+  }, defaultCrystal); // 초기값;
 };
