@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { gachaMachine } from '@/lib/gacha';
+import { gachaMachine, getCrystalsPerDay } from '@/lib/gacha';
 import { inventoryProps } from '@/types/inventory';
 import Inventory from './inventory';
 import { splitArrayByCrystalKeyword } from '@/lib/split';
@@ -19,29 +19,22 @@ const Simulator = ({ initData }: SimulatorProps) => {
   const [crystals, setCrystals] = useState(initData.currentCrystals); // 현재 보유한 크리스탈 개수
   const [crystalsPerDay, setCrystalsPerDay] = useState(initData.crystalsPerDay); // 하루당 크리스탈 획득 기댓값
   const [days, setDays] = useState(0); // 경과 일수
-  const [inventory, setInventory] = useState<inventoryProps[]>([
-    { name: '기타 크리스탈 보유효과 보물', count: 1, expectedValue: 10 },
-  ]); // 보물 별 수량 데이터
+  const [inventory, setInventory] = useState<inventoryProps[]>(
+    initData.inventory
+  ); // 보물 별 수량 데이터
   const [chartData, setChartData] = useState<chartDataProps[]>([]);
 
   useEffect(() => {
-    let _inventory: inventoryProps[] = [
-      { name: '기타 크리스탈 보유효과 보물들', count: 1, expectedValue: 10 },
-    ];
+    let _inventory = initData.inventory;
     let _crystals = initData.currentCrystals;
     let _crystalsPerDay = initData.crystalsPerDay;
     let _days = 0;
-    const threshold = initData.threshold; // 한번에 오픈할 개수
+    const threshold = initData.threshold; // 보물함 몇개를 열 수 있을 경우 트리거가 작동하는지에 대한 개수
     const _crystalsThreshold = 119 + 108 * (threshold - 1); // 1회 오픈 시 크리스탈 소모량
 
     const intervalId = setInterval(() => {
       _days++;
-      _crystalsPerDay = _inventory.reduce((sum, item) => {
-        if (item.name.includes('크리스탈') && item.expectedValue) {
-          return sum + item.count * item.expectedValue;
-        }
-        return sum; // "크리스탈"이 포함되지 않은 경우 기존 sum 반환
-      }, 320); // 초기값;
+      _crystalsPerDay = getCrystalsPerDay(_inventory, initData.defaultCrystal);
 
       _crystals += _crystalsPerDay;
 
