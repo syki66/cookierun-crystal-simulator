@@ -38,10 +38,31 @@ const FormSchema = z.object({
   date: z.date({
     required_error: '시작 날짜를 필수로 입력해야 합니다.',
   }),
-  crystalsPerDay: z.number({
-    required_error: '기댓값을 필수로 입력해야 합니다.',
-    invalid_type_error: '숫자를 입력해야 합니다.',
-  }),
+  crystals: z
+    .string({
+      required_error: '기댓값을 필수로 입력해야 합니다.',
+      invalid_type_error: '쉼표를 통해 9개의 숫자를 입력해야 합니다.',
+    })
+    .refine(
+      (value) => {
+        const parts = value.split(',');
+        return (
+          parts.length === 9 && parts.every((part) => /^\d+$/.test(part.trim()))
+        );
+      },
+      {
+        message: '쉼표가 8개 있고 그 사이에 자연수가 위치해야 합니다.',
+      }
+    ),
+  defaultCrystal: z
+    .string({
+      required_error: '크리스탈의 개수를 필수로 입력해야 합니다.',
+      invalid_type_error: '숫자를 입력해야 합니다.',
+    })
+    .refine((val) => /^-?\d+(\.\d+)?([eE][+-]?\d+)?$/.test(val), {
+      // 정규식 테스트
+      message: '유효한 숫자를 입력해야 합니다.',
+    }),
   currentCrystals: z
     .number({
       required_error: '크리스탈의 개수를 필수로 입력해야 합니다.',
@@ -74,20 +95,29 @@ export default function InputForm() {
     defaultValues: {
       date: new Date(),
       currentCrystals: 0,
-      crystalsPerDay: 0,
+      crystals: '21,19,19,22,20,29,13,97,36',
+      defaultCrystal: '10.35',
       threshold: 3,
       skip: 1,
       speed: '1',
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    const { date, currentCrystals, crystalsPerDay, skip, speed, threshold } =
-      data;
+  const onSubmit = (data: z.infer<typeof FormSchema>) => {
+    const {
+      date,
+      crystals,
+      defaultCrystal,
+      currentCrystals,
+      skip,
+      speed,
+      threshold,
+    } = data;
+    const crystalsArray = crystals.split(',').map((e) => e.trim()); // 공백 제거
     router.push(
-      `/simulator/show?timestamp=${date.getTime()}&currentCrystals=${currentCrystals}&crystalsPerDay=${crystalsPerDay}&skip=${skip}&speed=${speed}&threshold=${threshold}}`
+      `/simulator/show?timestamp=${date.getTime()}&crystals=${crystalsArray}&defaultCrystal=${defaultCrystal}&currentCrystals=${currentCrystals}&skip=${skip}&speed=${speed}&threshold=${threshold}`
     );
-  }
+  };
 
   return (
     <Form {...form}>
@@ -143,16 +173,46 @@ export default function InputForm() {
 
           <FormField
             control={form.control}
-            name="crystalsPerDay"
+            name="crystals"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>크리스탈 기댓값</FormLabel>
+                <FormLabel>
+                  크리스탈 보유효과를 가진 쉼표를 이용해서 입력해주세요.
+                  <span className="text-red-500">*</span>
+                </FormLabel>
                 <FormControl>
-                  <Input disabled placeholder="기댓값 입력" {...field} />
+                  <Input placeholder="각각의 개수를 입력해주세요." {...field} />
                 </FormControl>
                 <FormDescription>
-                  하루당 벌 수 있는 크리스탈의 기댓값입니다. 보물 입력 정보를
-                  바탕으로 자동 계산됩니다.
+                  현재 가지고 있는 크리스탈 보물 9개의 개수를 순서대로
+                  입력해주세요.
+                </FormDescription>
+                <FormDescription>
+                  [레어 크리스탈 사파이어, 희귀한 크리스탈 조개, 커다란 크리스탈
+                  원석, 최고급 크리스탈 보석함, 청명한 크리스탈 자명종, 왕
+                  크리스탈 보석반지, 장식용 크리스탈 포크스푼, 마음에 품은
+                  신성한 크리스탈 검, 진주 크리스탈 귀걸이]
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="defaultCrystal"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>
+                  기타 크리스탈 보물들의 기댓값
+                  <span className="text-red-500">*</span>
+                </FormLabel>
+                <FormControl>
+                  <Input placeholder="기타 크리스탈 기댓값" {...field} />
+                </FormControl>
+                <FormDescription>
+                  위에서 입력한 크리스탈 보물을 제외한 모든 크리스탈 보물의
+                  하루당 기댓값을 입력해주세요.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -197,7 +257,8 @@ export default function InputForm() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>
-                  보물상자 개봉량 <span className="text-red-500">*</span>
+                  보물상자 오픈 트리거가 발동되기 위한 크리스탈 개수
+                  <span className="text-red-500">*</span>
                 </FormLabel>
                 <FormControl>
                   <Input
@@ -216,8 +277,7 @@ export default function InputForm() {
                   />
                 </FormControl>
                 <FormDescription>
-                  [6+1개 세트 최고급 보물상자]를 한 번에 몇 개를 개봉할지
-                  입력해주세요.
+                  크리스탈이 몇개가 넘을 경우 보물상자를 오픈할지 입력해주세요.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
