@@ -33,6 +33,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 const FormSchema = z.object({
   date: z.date({
@@ -86,6 +87,8 @@ const FormSchema = z.object({
 export default function InputForm() {
   const router = useRouter();
 
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -128,7 +131,7 @@ export default function InputForm() {
                 <FormLabel>
                   시작 날짜 <span className="text-red-500">*</span>
                 </FormLabel>
-                <Popover>
+                <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
                   <PopoverTrigger asChild>
                     <FormControl>
                       <Button
@@ -151,7 +154,10 @@ export default function InputForm() {
                     <Calendar
                       mode="single"
                       selected={field.value}
-                      onSelect={field.onChange}
+                      onSelect={(selectedDate) => {
+                        field.onChange(selectedDate);
+                        setIsCalendarOpen(false); // 날짜 선택 시 팝업 닫기
+                      }}
                       disabled={(date) =>
                         date > new Date() || date < new Date('1900-01-01')
                       }
