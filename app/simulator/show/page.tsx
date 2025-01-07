@@ -22,10 +22,7 @@ export default function Page({ searchParams }: PageProps) {
     numberedCrystals,
     Number(defaultCrystal)
   ); // 초기 인벤토리 생성
-  const initCrystalsPerDay = getCrystalsPerDay(
-    initInventory,
-    Number(defaultCrystal)
-  ); // 초기 크리스탈 기댓값 생성
+  const initCrystalsPerDay = getCrystalsPerDay(initInventory); // 초기 크리스탈 기댓값 생성
 
   return (
     <>
@@ -33,7 +30,6 @@ export default function Page({ searchParams }: PageProps) {
         initData={{
           timestamp: Number(timestamp),
           currentCrystals: Number(currentCrystals),
-          defaultCrystal: Number(defaultCrystal),
           crystalsPerDay: initCrystalsPerDay,
           inventory: initInventory,
           skip: Number(skip),

@@ -180,14 +180,11 @@ export const initInventoryData = (
 };
 
 // 인벤토리와 기본값을 이용하여 하루 당 받을 수 있는 크리스탈 기댓값 반환
-export const getCrystalsPerDay = (
-  inventory: inventoryProps[],
-  defaultCrystal: number
-) => {
+export const getCrystalsPerDay = (inventory: inventoryProps[]) => {
   return inventory.reduce((sum, item) => {
     if (item.name.includes('크리스탈') && item.expectedValue) {
       return sum + item.count * item.expectedValue;
     }
     return sum; // "크리스탈"이 포함되지 않은 경우 기존 sum 반환
-  }, defaultCrystal); // 초기값;
+  }, 0); // 초기값;
 };

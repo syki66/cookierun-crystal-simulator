@@ -6,7 +6,7 @@ export type initDataParams = {
   crystalsPerDay: number;
   crystals?: number[];
   inventory: inventoryProps[];
-  defaultCrystal: number;
+  defaultCrystal?: number;
   skip: number;
   speed: number;
   threshold: number;
