@@ -34,7 +34,7 @@ const Simulator = ({ initData }: SimulatorProps) => {
 
     const intervalId = setInterval(() => {
       _days++;
-      _crystalsPerDay = getCrystalsPerDay(_inventory);
+      _crystalsPerDay = Math.round(getCrystalsPerDay(_inventory));
 
       _crystals += _crystalsPerDay;
 
@@ -45,7 +45,7 @@ const Simulator = ({ initData }: SimulatorProps) => {
       );
 
       _inventory = updatedInventory;
-      _crystals = updatedCrystals;
+      _crystals = Math.round(updatedCrystals);
 
       setCrystals(_crystals);
       setCrystalsPerDay(_crystalsPerDay);
