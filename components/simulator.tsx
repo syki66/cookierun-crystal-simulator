@@ -9,6 +9,7 @@ import { splitArrayByCrystalKeyword } from '@/lib/split';
 import CrystalChart from './crystal-chart';
 import DashboardCard from './crystal-chart/dashboard-card';
 import { initDataParams } from '@/types/params';
+import { addDaysToTimestamp, formatTimestampToDate } from '@/lib/date';
 
 interface SimulatorProps {
   initData: initDataParams;
@@ -17,25 +18,24 @@ interface SimulatorProps {
 const Simulator = ({ initData }: SimulatorProps) => {
   const [crystals, setCrystals] = useState(initData.currentCrystals); // 현재 보유한 크리스탈 개수
   const [crystalsPerDay, setCrystalsPerDay] = useState(initData.crystalsPerDay); // 하루당 크리스탈 획득 기댓값
-  const [date, setDate] = useState(0); // 현재 날짜
+  const [days, setDays] = useState(0); // 경과 일수
   const [inventory, setInventory] = useState<inventoryProps[]>([
     { name: '기타 크리스탈 보유효과 보물', count: 1, expectedValue: 10 },
   ]); // 보물 별 수량 데이터
   const [chartData, setChartData] = useState<chartDataProps[]>([]);
 
   useEffect(() => {
-    const _chartData: chartDataProps[] = []; // 차트 시각화용 데이터 수집
     let _inventory: inventoryProps[] = [
       { name: '기타 크리스탈 보유효과 보물들', count: 1, expectedValue: 10 },
     ];
     let _crystals = initData.currentCrystals;
     let _crystalsPerDay = initData.crystalsPerDay;
-    let _date = 0;
+    let _days = 0;
     const threshold = initData.threshold; // 한번에 오픈할 개수
     const _crystalsThreshold = 119 + 108 * (threshold - 1); // 1회 오픈 시 크리스탈 소모량
 
     const intervalId = setInterval(() => {
-      _date++;
+      _days++;
       _crystalsPerDay = _inventory.reduce((sum, item) => {
         if (item.name.includes('크리스탈') && item.expectedValue) {
           return sum + item.count * item.expectedValue;
@@ -54,23 +54,20 @@ const Simulator = ({ initData }: SimulatorProps) => {
       _inventory = updatedInventory;
       _crystals = updatedCrystals;
 
-      // 차트용 데이터 수집
-      _chartData.push({
-        date: `${_date}`,
-        crystals: _crystalsPerDay,
-      });
-
-      setDate(_date);
       setCrystals(_crystals);
       setCrystalsPerDay(_crystalsPerDay);
       setInventory(_inventory);
+      setDays(_days);
 
       // 차트용 데이터 업데이트
-      if (_date % initData.skip === 0) {
+      if (_days % initData.skip === 0) {
         setChartData((prevChartData) => {
           return [
             ...prevChartData,
-            { date: `${_date}`, crystals: _crystalsPerDay },
+            {
+              date: addDaysToTimestamp(initData.timestamp, _days),
+              crystals: _crystalsPerDay,
+            },
           ];
         });
       }
@@ -82,8 +79,12 @@ const Simulator = ({ initData }: SimulatorProps) => {
   return (
     <>
       <div className="flex flex-wrap gap-4 justify-center mb-5">
-        <DashboardCard title="D+??" description={date} />
-        <DashboardCard title="날짜" description={date} />
+        <DashboardCard
+          title={`날짜 [D+${days}]`}
+          description={`${formatTimestampToDate(
+            initData.timestamp
+          )} ~ ${addDaysToTimestamp(initData.timestamp, days)}`}
+        />
         <DashboardCard
           title="하루당 크리스탈 획득량"
           description={crystalsPerDay}

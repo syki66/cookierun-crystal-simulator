@@ -6,13 +6,13 @@ interface PageProps {
 }
 
 export default function Page({ searchParams }: PageProps) {
-  const { date, currentCrystals, crystalsPerDay, skip, speed, threshold } =
+  const { timestamp, currentCrystals, crystalsPerDay, skip, speed, threshold } =
     searchParams;
   return (
     <>
       <Simulator
         initData={{
-          date: new Date(date),
+          timestamp: Number(timestamp),
           currentCrystals: Number(currentCrystals),
           crystalsPerDay: Number(crystalsPerDay),
           skip: Number(skip),

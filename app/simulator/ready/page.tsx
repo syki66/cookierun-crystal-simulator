@@ -85,7 +85,7 @@ export default function InputForm() {
     const { date, currentCrystals, crystalsPerDay, skip, speed, threshold } =
       data;
     router.push(
-      `/simulator/show?date=${date}&currentCrystals=${currentCrystals}&crystalsPerDay=${crystalsPerDay}&skip=${skip}&speed=${speed}&threshold=${threshold}`
+      `/simulator/show?timestamp=${date.getTime()}&currentCrystals=${currentCrystals}&crystalsPerDay=${crystalsPerDay}&skip=${skip}&speed=${speed}&threshold=${threshold}}`
     );
   }
 

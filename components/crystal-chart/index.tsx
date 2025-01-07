@@ -49,7 +49,7 @@ export default function CrystalChart({ chartData }: CrystalChartProp) {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
+              // tickFormatter={(value) => value.slice(0, 3)}
             />
             <YAxis />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />

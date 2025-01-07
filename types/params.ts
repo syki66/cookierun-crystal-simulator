@@ -1,5 +1,5 @@
 export type initDataParams = {
-  date: number;
+  timestamp: number;
   currentCrystals: number;
   crystalsPerDay: number;
   skip: number;
