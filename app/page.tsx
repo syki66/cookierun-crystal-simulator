@@ -10,7 +10,9 @@ export default function Home() {
         </h1>
         <div>
           <Button className="inline">
-            <Link href="/simulator">쿠키런 보물 뽑기 시뮬레이터 바로가기</Link>
+            <Link href="/simulator/ready">
+              쿠키런 보물 뽑기 시뮬레이터 바로가기
+            </Link>
           </Button>
         </div>
         <div>

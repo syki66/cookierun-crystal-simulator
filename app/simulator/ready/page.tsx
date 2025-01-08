@@ -95,8 +95,8 @@ export default function InputForm() {
       date: new Date(),
       currentCrystals: 0,
       crystals: '0,0,0,0,0,0,0,0,0',
-      defaultCrystal: '10.35',
-      threshold: '3',
+      defaultCrystal: '1',
+      threshold: '1',
       skip: 1,
       speed: '1',
     },
@@ -118,250 +118,291 @@ export default function InputForm() {
     );
   };
 
+  // 말 다듬고 커밋하기
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
-        <Card>
-          <CardHeader className="text-center">시뮬레이션 정보 입력</CardHeader>
-          <FormField
-            control={form.control}
-            name="date"
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>
-                  시작 날짜 <span className="text-red-500">*</span>
-                </FormLabel>
-                <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant={'outline'}
-                        className={cn(
-                          'w-[240px] pl-3 text-left font-normal',
-                          !field.value && 'text-muted-foreground'
-                        )}
-                      >
-                        {field.value ? (
-                          format(field.value, 'yyyy년 MM월 dd일')
-                        ) : (
-                          <span>날짜 선택</span>
-                        )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={field.value}
-                      onSelect={(selectedDate) => {
-                        field.onChange(selectedDate);
-                        setIsCalendarOpen(false); // 날짜 선택 시 팝업 닫기
-                      }}
-                      disabled={(date) =>
-                        date > new Date() || date < new Date('1900-01-01')
-                      }
-                      initialFocus
+    <div className="max-w-screen-md mx-auto">
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <Card className="p-10">
+            <CardHeader className="text-center text-2xl font-semibold pt-0">
+              시뮬레이션 정보 입력
+            </CardHeader>
+
+            <FormField
+              control={form.control}
+              name="date"
+              render={({ field }) => (
+                <FormItem className="flex flex-col mt-5 mb-10">
+                  <FormLabel>
+                    시작 날짜 <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <Popover
+                    open={isCalendarOpen}
+                    onOpenChange={setIsCalendarOpen}
+                  >
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={'outline'}
+                          className={cn(
+                            'w-[240px] pl-3 text-left font-normal',
+                            !field.value && 'text-muted-foreground'
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, 'yyyy년 MM월 dd일')
+                          ) : (
+                            <span>날짜 선택</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={(selectedDate) => {
+                          field.onChange(selectedDate);
+                          setIsCalendarOpen(false); // 날짜 선택 시 팝업 닫기
+                        }}
+                        disabled={(date) =>
+                          date > new Date() || date < new Date('1900-01-01')
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <FormDescription>
+                    시뮬레이션이 시작될 기준 날짜를 골라주세요.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="crystals"
+              render={({ field }) => (
+                <FormItem className="mb-10">
+                  <FormLabel>
+                    크리스탈 보물들의 개수
+                    <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="각각의 개수를 쉼표를 사이에 두고 입력해주세요."
+                      {...field}
                     />
-                  </PopoverContent>
-                </Popover>
-                <FormDescription>
-                  시뮬레이션이 시작될 기준 날짜를 골라주세요.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="crystals"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  크리스탈 보유효과를 가진 쉼표를 이용해서 입력해주세요.
-                  <span className="text-red-500">*</span>
-                </FormLabel>
-                <FormControl>
-                  <Input placeholder="각각의 개수를 입력해주세요." {...field} />
-                </FormControl>
-                <FormDescription>
-                  현재 가지고 있는 크리스탈 보물 9개의 개수를 순서대로
-                  입력해주세요.
-                </FormDescription>
-                <FormDescription>
-                  [레어 크리스탈 사파이어, 희귀한 크리스탈 조개, 커다란 크리스탈
-                  원석, 최고급 크리스탈 보석함, 청명한 크리스탈 자명종, 왕
-                  크리스탈 보석반지, 장식용 크리스탈 포크스푼, 마음에 품은
-                  신성한 크리스탈 검, 진주 크리스탈 귀걸이]
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="defaultCrystal"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  기타 크리스탈 보물들의 기댓값
-                  <span className="text-red-500">*</span>
-                </FormLabel>
-                <FormControl>
-                  <Input placeholder="기타 크리스탈 기댓값" {...field} />
-                </FormControl>
-                <FormDescription>
-                  위에서 입력한 크리스탈 보물을 제외한 모든 크리스탈 보물의
-                  하루당 기댓값을 입력해주세요.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="currentCrystals"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  크리스탈 <span className="text-red-500">*</span>
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="크리스탈 개수 입력"
-                    {...field}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      field.onChange(
-                        value === ''
-                          ? ''
-                          : isNaN(Number(value))
-                          ? value
-                          : Number(value)
-                      );
-                    }}
-                  />
-                </FormControl>
-                <FormDescription>
-                  현재 가지고 있는 크리스탈의 개수를 입력해주세요.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="threshold"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  보물상자 오픈 트리거가 발동되기 위한 크리스탈 개수
-                  <span className="text-red-500">*</span>
-                </FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="역치값 선택" />
-                    </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="1">119</SelectItem>
-                    <SelectItem value="2">227</SelectItem>
-                    <SelectItem value="3">335</SelectItem>
-                    <SelectItem value="4">443</SelectItem>
-                    <SelectItem value="5">551</SelectItem>
-                    <SelectItem value="6">659</SelectItem>
-                    <SelectItem value="7">767</SelectItem>
-                    <SelectItem value="8">875</SelectItem>
-                    <SelectItem value="9">983</SelectItem>
-                    <SelectItem value="10">1091</SelectItem>
-                    <SelectItem value="11">1199</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormDescription>
-                  크리스탈이 몇개가 넘을 경우 보물상자를 오픈할지 입력해주세요.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  <FormDescription>
+                    현재 보유하고 있는 크리스탈 보물 개수를 쉼표를 사이에 두고
+                    순서대로 입력해주세요.
+                  </FormDescription>
+                  <FormDescription>
+                    [
+                    <span className="text-blue-400">
+                      레어 크리스탈 사파이어
+                    </span>
+                    ,{' '}
+                    <span className="text-cyan-400">희귀한 크리스탈 조개</span>,{' '}
+                    <span className="text-sky-400">커다란 크리스탈 원석</span>,{' '}
+                    <span className="text-blue-500">
+                      최고급 크리스탈 보석함
+                    </span>
+                    ,{' '}
+                    <span className="text-cyan-500">
+                      청명한 크리스탈 자명종
+                    </span>
+                    , <span className="text-sky-500">왕 크리스탈 보석반지</span>
+                    ,{' '}
+                    <span className="text-blue-600">
+                      장식용 크리스탈 포크스푼
+                    </span>
+                    ,{' '}
+                    <span className="text-cyan-600">
+                      마음에 품은 신성한 크리스탈 검
+                    </span>
+                    , <span className="text-sky-600">진주 크리스탈 귀걸이</span>
+                    ]
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="skip"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  그래프 간소화 <span className="text-red-500">*</span>
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="건너뛸 데이터량 입력"
-                    {...field}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      field.onChange(
-                        value === ''
-                          ? ''
-                          : isNaN(Number(value))
-                          ? value
-                          : Number(value)
-                      );
-                    }}
-                  />
-                </FormControl>
-                <FormDescription>
-                  그래프에 데이터를 1번 표시할때마다 몇번의 데이터를 건너뛸지
-                  입력합니다.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="speed"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  시뮬레이션 배속 <span className="text-red-500">*</span>
-                </FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+            <FormField
+              control={form.control}
+              name="defaultCrystal"
+              render={({ field }) => (
+                <FormItem className="mb-10">
+                  <FormLabel>
+                    기타 크리스탈 보물들의 기댓값
+                    <span className="text-red-500">*</span>
+                  </FormLabel>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="배속 선택" />
-                    </SelectTrigger>
+                    <Input
+                      placeholder="기타 크리스탈 기댓값 입력 (ex. 출석시 1크리스탈, 70레벨 크리스탈 보물 등)"
+                      {...field}
+                    />
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="1">x1</SelectItem>
-                    <SelectItem value="2">x2</SelectItem>
-                    <SelectItem value="4">x4</SelectItem>
-                    <SelectItem value="8">x8</SelectItem>
-                    <SelectItem value="16">x16</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormDescription>
-                  시뮬레이션 배속을 선택해주세요.
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </Card>
+                  <FormDescription>
+                    위에서 입력한 크리스탈 보물을 제외한 모든 크리스탈 보물들의
+                    하루 기댓값 총합을 입력해주세요.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-        <Button type="submit">시뮬레이션 시작</Button>
-      </form>
-    </Form>
+            <FormField
+              control={form.control}
+              name="currentCrystals"
+              render={({ field }) => (
+                <FormItem className="mb-10">
+                  <FormLabel>
+                    크리스탈 보유량 <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="크리스탈 보유 개수 입력"
+                      {...field}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        field.onChange(
+                          value === ''
+                            ? ''
+                            : isNaN(Number(value))
+                            ? value
+                            : Number(value)
+                        );
+                      }}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    현재 가지고 있는 크리스탈의 개수를 입력해주세요.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="threshold"
+              render={({ field }) => (
+                <FormItem className="mb-10">
+                  <FormLabel>
+                    보물상자 오픈 트리거가 발동되기 위한 크리스탈 개수
+                    <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="역치값 선택" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="1">119</SelectItem>
+                      <SelectItem value="2">227</SelectItem>
+                      <SelectItem value="3">335</SelectItem>
+                      <SelectItem value="4">443</SelectItem>
+                      <SelectItem value="5">551</SelectItem>
+                      <SelectItem value="6">659</SelectItem>
+                      <SelectItem value="7">767</SelectItem>
+                      <SelectItem value="8">875</SelectItem>
+                      <SelectItem value="9">983</SelectItem>
+                      <SelectItem value="10">1091</SelectItem>
+                      <SelectItem value="11">1199</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormDescription>
+                    크리스탈이 몇개가 넘을 경우 보물상자를 오픈할지
+                    입력해주세요.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="skip"
+              render={({ field }) => (
+                <FormItem className="mb-10">
+                  <FormLabel>
+                    그래프 축약 <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="자연수 입력"
+                      {...field}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        field.onChange(
+                          value === ''
+                            ? ''
+                            : isNaN(Number(value))
+                            ? value
+                            : Number(value)
+                        );
+                      }}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    몇 일마다 그래프에 데이터를 표기할지 선택해주세요.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="speed"
+              render={({ field }) => (
+                <FormItem className="mb-10">
+                  <FormLabel>
+                    시뮬레이션 배속 <span className="text-red-500">*</span>
+                  </FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="배속 선택" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="1">x1</SelectItem>
+                      <SelectItem value="2">x2</SelectItem>
+                      <SelectItem value="4">x4</SelectItem>
+                      <SelectItem value="8">x8</SelectItem>
+                      <SelectItem value="16">x16</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormDescription>
+                    시뮬레이션 배속을 선택해주세요.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </Card>
+
+          <Button
+            type="submit"
+            className="w-full h-16 my-10 text-white text-4xl bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 hover:from-purple-500 hover:via-pink-600 hover:to-red-600"
+          >
+            시뮬레이션 시작하기
+          </Button>
+        </form>
+      </Form>
+    </div>
   );
 }
