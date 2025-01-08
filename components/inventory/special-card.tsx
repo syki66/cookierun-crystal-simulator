@@ -17,7 +17,7 @@ const SpecialCard: React.FC<SpecialCardProps> = ({
   count,
 }) => {
   return (
-    <Card className="w-48 h-48 overflow-hidden rounded-xl shadow-xl transform transition-all hover:scale-105 hover:shadow-2xl">
+    <Card className="w-40 h-40 sm:w-48 sm:h-48 overflow-hidden rounded-xl shadow-xl transform transition-all hover:scale-105 hover:shadow-2xl">
       <div className="absolute inset-0 bg-gradient-to-br from-red-400 via-yellow-400 to-purple-400 opacity-75 animate-gradient"></div>
       <CardContent className="relative h-full flex flex-col items-center justify-between text-white p-4 z-10">
         <CardTitle className="text-xl font-bold text-center">{name}</CardTitle>

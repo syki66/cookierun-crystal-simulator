@@ -30,8 +30,10 @@ export default function CrystalChart({ chartData }: CrystalChartProp) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>크리스탈 기댓값 그래프</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle className="text-center text-xl">
+          크리스탈 기댓값 그래프
+        </CardTitle>
+        <CardDescription></CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>

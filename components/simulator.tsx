@@ -76,8 +76,8 @@ const Simulator = ({ initData }: SimulatorProps) => {
 
   return (
     <>
-      <div className="flex flex-wrap gap-4 justify-center mb-5">
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="max-w-screen-2xl mx-auto">
+        <div className="grid gap-4 grid-cols-2 md:grid-cols-2 lg:grid-cols-4 mb-10">
           <DashboardCard
             title="날짜"
             icon={Calendar}
@@ -103,9 +103,9 @@ const Simulator = ({ initData }: SimulatorProps) => {
             subtext=""
           />
         </div>
+        <CrystalChart chartData={chartData} />
+        <Inventory items={splitArrayByCrystalKeyword(inventory)} />
       </div>
-      <CrystalChart chartData={chartData} />
-      <Inventory items={splitArrayByCrystalKeyword(inventory)} />
     </>
   );
 };
