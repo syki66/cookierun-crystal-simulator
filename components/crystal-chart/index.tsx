@@ -13,7 +13,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/components/ui/chart';
-import { useEffect } from 'react';
 
 const chartConfig = {
   crystals: {

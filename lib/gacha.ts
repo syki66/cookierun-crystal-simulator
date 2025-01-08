@@ -13,7 +13,7 @@ const pickItemFromWeightedRandom = (
 ) => {
   let random = Math.random() * totalWeight; // 0부터 totalWeight 사이의 랜덤 값 생성
 
-  for (let item of items) {
+  for (const item of items) {
     random -= item.weight; // 랜덤 값에서 가중치를 차감
     if (random <= 0) {
       return item.name; // 가중치가 초과된 항목 반환
