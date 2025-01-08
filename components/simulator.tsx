@@ -9,7 +9,12 @@ import { splitArrayByCrystalKeyword } from '@/lib/split';
 import CrystalChart from './crystal-chart';
 import DashboardCard from './crystal-chart/dashboard-card';
 import { initDataParams } from '@/types/params';
-import { addDaysToTimestamp, formatTimestampToDate } from '@/lib/date';
+import {
+  addDaysToTimestamp,
+  convertToYearsMonthDays,
+  formatTimestampToDate,
+} from '@/lib/date';
+import { Calendar, Clock, Diamond, Coins } from 'lucide-react';
 
 interface SimulatorProps {
   initData: initDataParams;
@@ -72,17 +77,32 @@ const Simulator = ({ initData }: SimulatorProps) => {
   return (
     <>
       <div className="flex flex-wrap gap-4 justify-center mb-5">
-        <DashboardCard
-          title={`날짜 [D+${days}]`}
-          description={`${formatTimestampToDate(
-            initData.timestamp
-          )} ~ ${addDaysToTimestamp(initData.timestamp, days)}`}
-        />
-        <DashboardCard
-          title="하루당 크리스탈 획득량"
-          description={crystalsPerDay}
-        />
-        <DashboardCard title="현재 크리스탈 개수" description={crystals} />
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <DashboardCard
+            title="날짜"
+            icon={Calendar}
+            value={`${addDaysToTimestamp(initData.timestamp, days)}`}
+            subtext={`시작일: ${formatTimestampToDate(initData.timestamp)}`}
+          />
+          <DashboardCard
+            title="경과"
+            icon={Clock}
+            value={`${convertToYearsMonthDays(initData.timestamp, days)}`}
+            subtext={`D+${days.toLocaleString()}`}
+          />
+          <DashboardCard
+            title="하루당 크리스탈 획득량"
+            icon={Diamond}
+            value={`${crystalsPerDay.toLocaleString()} 개`}
+            subtext=""
+          />
+          <DashboardCard
+            title="현재 크리스탈 개수"
+            icon={Coins}
+            value={`${crystals.toLocaleString()} 개`}
+            subtext=""
+          />
+        </div>
       </div>
       <CrystalChart chartData={chartData} />
       <Inventory items={splitArrayByCrystalKeyword(inventory)} />
