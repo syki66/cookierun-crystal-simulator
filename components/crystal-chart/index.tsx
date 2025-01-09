@@ -39,10 +39,10 @@ export default function CrystalChart({ chartData }: CrystalChartProp) {
           <LineChart
             accessibilityLayer
             data={chartData}
-            margin={{
-              left: 12,
-              right: 12,
-            }}
+            // margin={{
+            //   left: 12,
+            //   right: 12,
+            // }}
           >
             <CartesianGrid vertical={false} />
             <XAxis

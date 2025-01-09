@@ -88,19 +88,19 @@ const Simulator = ({ initData }: SimulatorProps) => {
             title="경과"
             icon={Clock}
             value={`${convertToYearsMonthDays(initData.timestamp, days)}`}
-            subtext={`D+${days.toLocaleString()}`}
+            subtext={`D+${days}`}
           />
           <DashboardCard
             title="하루당 크리스탈 획득량"
             icon={Diamond}
             value={`${crystalsPerDay.toLocaleString()} 개`}
-            subtext=""
+            subtext={`초기 기댓값: ${initData.crystalsPerDay}`}
           />
           <DashboardCard
             title="현재 크리스탈 개수"
             icon={Coins}
             value={`${crystals.toLocaleString()} 개`}
-            subtext=""
+            subtext={`6+1 보물상자 ${initData.threshold}개치 크리스탈 모이면 오픈`}
           />
         </div>
         <CrystalChart chartData={chartData} />
