@@ -12,7 +12,6 @@ type NavItemProps = {
 
 export default function NavItem({ href, color, children }: NavItemProps) {
   const path = usePathname();
-  console.log(path);
 
   return (
     <Link
