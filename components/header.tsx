@@ -8,9 +8,9 @@ const Header = () => {
           <li>
             <Link
               href="/simulator/ready"
-              className="text-white font-bold text-lg hover:text-yellow-300 transition-colors duration-300"
+              className="text-white font-bold text-lg hover:text-cyan-300 transition-colors duration-300"
             >
-              미래 기댓값 시뮬레이터
+              기댓값 시뮬레이터
             </Link>
           </li>
           <li>
@@ -24,17 +24,17 @@ const Header = () => {
           <li>
             <Link
               href="/gacha"
-              className="text-white font-bold text-lg hover:text-blue-300 transition-colors duration-300"
+              className="text-white font-bold text-lg hover:text-yellow-300 transition-colors duration-300"
             >
               보물 뽑기 시뮬레이터
             </Link>
           </li>
           <li>
             <Link
-              href="/auto"
-              className="text-white font-bold text-lg hover:text-purple-300 transition-colors duration-300"
+              href="/automation"
+              className="text-white font-bold text-lg hover:text-blue-300 transition-colors duration-300"
             >
-              자동화 프로그램 다운로드
+              자동화 프로그램
             </Link>
           </li>
         </ul>
