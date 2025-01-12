@@ -8,7 +8,7 @@ const Header = () => {
           <li>
             <Link
               href="/simulator/ready"
-              className="text-white font-bold text-lg hover:text-cyan-300 transition-colors duration-300"
+              className="text-white font-bold text-lg px-4 py-2 rounded-md hover:bg-white/10 hover:text-cyan-300 transition-colors duration-200"
             >
               기댓값 시뮬레이터
             </Link>
@@ -16,7 +16,7 @@ const Header = () => {
           <li>
             <Link
               href="/calculator"
-              className="text-white font-bold text-lg hover:text-green-300 transition-colors duration-300"
+              className="text-white font-bold text-lg px-4 py-2 rounded-md hover:bg-white/10 hover:text-green-300 transition-colors duration-200"
             >
               기댓값 계산기
             </Link>
@@ -24,7 +24,7 @@ const Header = () => {
           <li>
             <Link
               href="/gacha"
-              className="text-white font-bold text-lg hover:text-yellow-300 transition-colors duration-300"
+              className="text-white font-bold text-lg px-4 py-2 rounded-md hover:bg-white/10 hover:text-yellow-300 transition-colors duration-200"
             >
               보물 뽑기 시뮬레이터
             </Link>
@@ -32,7 +32,7 @@ const Header = () => {
           <li>
             <Link
               href="/automation"
-              className="text-white font-bold text-lg hover:text-blue-300 transition-colors duration-300"
+              className="text-white font-bold text-lg px-4 py-2 rounded-md hover:bg-white/10 hover:text-blue-300 transition-colors duration-200"
             >
               자동화 프로그램
             </Link>
