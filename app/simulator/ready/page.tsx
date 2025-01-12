@@ -84,7 +84,7 @@ const FormSchema = z.object({
   }),
 });
 
-export default function InputForm() {
+export default function Page() {
   const router = useRouter();
 
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
