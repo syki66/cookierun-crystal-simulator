@@ -126,8 +126,13 @@ export const simulator = (
     threshold
   ); // 반복 횟수와 남은 크리스탈 개수 연산
 
+  let lastPickedItems: string[] = []; // 실시간 보물 뽑기 데이터로 활용하기 위함
+
   for (let i = 0; i < loopCount; i++) {
     const pickedItems = gachaMachine();
+    lastPickedItems = pickedItems.filter(
+      (item): item is string => item !== undefined
+    );
 
     // 인벤토리 업데이트
     pickedItems.forEach((pickedItem) => {
@@ -149,7 +154,7 @@ export const simulator = (
     });
   }
 
-  return { updatedCrystals, inventory };
+  return { updatedCrystals, inventory, lastPickedItems };
 };
 
 // 초기 인벤토리 데이터  생성 함수
