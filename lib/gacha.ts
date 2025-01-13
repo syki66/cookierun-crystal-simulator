@@ -52,8 +52,71 @@ const crystalThresholdReducer = (crystals: number, threshold: number) => {
   return [count, crystals];
 };
 
-// 가챠 로직
-export const gachaMachine = (
+// 보물 뽑기 로직
+const gachaMachine = () => {
+  const pickedMultiLootbox = getPickedItem(
+    multiLootboxData // 최고급 보물 상자 6+1개 세트 뽑기 데이터
+  );
+
+  // 6+1세트 구매시 S보물 및 A보물 등장 확률별 분기 처리
+  const _pickedItems = [];
+  switch (pickedMultiLootbox) {
+    case 'S등급 보물 3개 + A등급 보물 4개':
+      _pickedItems.push(
+        ...Array(3)
+          .fill(null)
+          .map(() => getPickedItem(lootboxDataSGrade)),
+        ...Array(4)
+          .fill(null)
+          .map(() => getPickedItem(lootboxDataAGrade))
+      );
+      break;
+    case 'S등급 보물 4개 + A등급 보물 3개':
+      _pickedItems.push(
+        ...Array(4)
+          .fill(null)
+          .map(() => getPickedItem(lootboxDataSGrade)),
+        ...Array(3)
+          .fill(null)
+          .map(() => getPickedItem(lootboxDataAGrade))
+      );
+      break;
+    case 'S등급 보물 5개 + A등급 보물 2개':
+      _pickedItems.push(
+        ...Array(5)
+          .fill(null)
+          .map(() => getPickedItem(lootboxDataSGrade)),
+        ...Array(2)
+          .fill(null)
+          .map(() => getPickedItem(lootboxDataAGrade))
+      );
+      break;
+    case 'S등급 보물 6개 + A등급 보물 1개':
+      _pickedItems.push(
+        ...Array(6)
+          .fill(null)
+          .map(() => getPickedItem(lootboxDataSGrade)),
+        ...Array(1)
+          .fill(null)
+          .map(() => getPickedItem(lootboxDataAGrade))
+      );
+      break;
+    case 'S등급 보물 7개':
+      _pickedItems.push(
+        ...Array(7)
+          .fill(null)
+          .map(() => getPickedItem(lootboxDataSGrade))
+      );
+      break;
+    default:
+      console.error('알 수 없는 결과:', pickedMultiLootbox); // 예외 발생 시 에러 로그 출력
+  }
+
+  return _pickedItems;
+};
+
+// 시뮬레이터 로직
+export const simulator = (
   crystals: number,
   threshold: number,
   inventory: inventoryProps[]
@@ -64,66 +127,10 @@ export const gachaMachine = (
   ); // 반복 횟수와 남은 크리스탈 개수 연산
 
   for (let i = 0; i < loopCount; i++) {
-    const pickedMultiLootbox = getPickedItem(
-      multiLootboxData // 최고급 보물 상자 6+1개 세트 뽑기 데이터
-    );
-
-    // 6+1세트 구매시 S보물 및 A보물 등장 확률별 분기 처리
-    const _pickedItems = [];
-    switch (pickedMultiLootbox) {
-      case 'S등급 보물 3개 + A등급 보물 4개':
-        _pickedItems.push(
-          ...Array(3)
-            .fill(null)
-            .map(() => getPickedItem(lootboxDataSGrade)),
-          ...Array(4)
-            .fill(null)
-            .map(() => getPickedItem(lootboxDataAGrade))
-        );
-        break;
-      case 'S등급 보물 4개 + A등급 보물 3개':
-        _pickedItems.push(
-          ...Array(4)
-            .fill(null)
-            .map(() => getPickedItem(lootboxDataSGrade)),
-          ...Array(3)
-            .fill(null)
-            .map(() => getPickedItem(lootboxDataAGrade))
-        );
-        break;
-      case 'S등급 보물 5개 + A등급 보물 2개':
-        _pickedItems.push(
-          ...Array(5)
-            .fill(null)
-            .map(() => getPickedItem(lootboxDataSGrade)),
-          ...Array(2)
-            .fill(null)
-            .map(() => getPickedItem(lootboxDataAGrade))
-        );
-        break;
-      case 'S등급 보물 6개 + A등급 보물 1개':
-        _pickedItems.push(
-          ...Array(6)
-            .fill(null)
-            .map(() => getPickedItem(lootboxDataSGrade)),
-          ...Array(1)
-            .fill(null)
-            .map(() => getPickedItem(lootboxDataAGrade))
-        );
-        break;
-      case 'S등급 보물 7개':
-        _pickedItems.push(
-          ...Array(7)
-            .fill(null)
-            .map(() => getPickedItem(lootboxDataSGrade))
-        );
-        break;
-      default:
-        console.error('알 수 없는 결과:', pickedMultiLootbox); // 예외 발생 시 에러 로그 출력
-    }
+    const pickedItems = gachaMachine();
 
     // 인벤토리 업데이트
-    _pickedItems.forEach((pickedItem) => {
+    pickedItems.forEach((pickedItem) => {
       const foundIndex = inventory.findIndex(
         (inventoryItem) => inventoryItem.name === pickedItem
       );

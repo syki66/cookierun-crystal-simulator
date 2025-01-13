@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { gachaMachine, getCrystalsPerDay } from '@/lib/gacha';
+import { simulator, getCrystalsPerDay } from '@/lib/gacha';
 import { inventoryProps } from '@/types/inventory';
 import Inventory from './inventory';
 import { splitArrayByCrystalKeyword } from '@/lib/split';
@@ -43,7 +43,7 @@ const Simulator = ({ initData }: SimulatorProps) => {
 
       _crystals += _crystalsPerDay;
 
-      const { updatedCrystals, inventory: updatedInventory } = gachaMachine(
+      const { updatedCrystals, inventory: updatedInventory } = simulator(
         _crystals,
         _crystalsThreshold,
         _inventory
