@@ -173,7 +173,7 @@ export const simulator = (
     const pickedItems: string[] = multiGachaMachine();
 
     // 인벤토리 업데이트
-    updatedInventory = updateInventory(pickedItems, inventory);
+    updatedInventory = updateInventory(pickedItems, updatedInventory);
   }
 
   return { updatedCrystals, updatedInventory };
