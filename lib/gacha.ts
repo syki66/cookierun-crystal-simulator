@@ -54,8 +54,17 @@ const crystalThresholdReducer = (crystals: number, threshold: number) => {
   return [count, crystals];
 };
 
+// 보물 1개 뽑기
+export const singleGachaMachine = (): string[] => {
+  const pickedItem = getPickedItem([
+    ...lootboxDataSGrade,
+    ...lootboxDataAGrade,
+  ]);
+  return [pickedItem];
+};
+
 // 6+1 보물 뽑기 로직
-export const gachaMachine = (): string[] => {
+export const multiGachaMachine = (): string[] => {
   const pickedMultiLootbox = getPickedItem(
     multiLootboxData // 최고급 보물 상자 6+1개 세트 뽑기 데이터
   );
@@ -161,7 +170,7 @@ export const simulator = (
 
   let updatedInventory: inventoryProps[] = [];
   for (let i = 0; i < loopCount; i++) {
-    const pickedItems: string[] = gachaMachine();
+    const pickedItems: string[] = multiGachaMachine();
 
     // 인벤토리 업데이트
     updatedInventory = updateInventory(pickedItems, inventory);
