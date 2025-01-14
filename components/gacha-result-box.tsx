@@ -1,4 +1,10 @@
-export default function GachaResultBox({ children }) {
+import { ReactNode } from 'react';
+
+interface GachaResultBoxProps {
+  children: ReactNode;
+}
+
+export default function GachaResultBox({ children }: GachaResultBoxProps) {
   return (
     <div className="relative rounded-xl overflow-hidden p-4">
       <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 animate-gradient"></div>

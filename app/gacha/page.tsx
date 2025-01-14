@@ -45,7 +45,7 @@ export default function Page() {
   return (
     <>
       <div className="max-w-screen-2xl mx-auto">
-        <div className="grid gap-10 grid-cols-2 md:w-1/2 mx-auto">
+        <div className="grid gap-6 grid-cols-2 md:w-[800px] mx-auto">
           <DashboardCard
             title="보물상자 1개"
             subtext={`소요 크리스탈: ${(singleCount * 25).toLocaleString()}개`}
@@ -62,7 +62,7 @@ export default function Page() {
             icon={Boxes}
           />
         </div>
-        <div className="grid gap-10 grid-cols-2 md:w-1/2 mx-auto mb-10">
+        <div className="grid gap-6 grid-cols-2 md:w-[800px] mx-auto mb-10">
           <Button
             type="submit"
             className="w-full h-16 my-10 text-white text-4xl bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 hover:from-purple-500 hover:via-pink-600 hover:to-red-600"
