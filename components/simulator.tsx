@@ -14,7 +14,7 @@ import {
   convertToYearsMonthDays,
   formatTimestampToDate,
 } from '@/lib/date';
-import { Calendar, Clock, Diamond, Coins } from 'lucide-react';
+import { Calendar, Tally5, Gem, HandCoins } from 'lucide-react';
 
 interface SimulatorProps {
   initData: initDataParams;
@@ -86,19 +86,19 @@ const Simulator = ({ initData }: SimulatorProps) => {
           />
           <DashboardCard
             title="경과"
-            icon={Clock}
+            icon={Tally5}
             value={`${convertToYearsMonthDays(initData.timestamp, days)}`}
             subtext={`D+${days}`}
           />
           <DashboardCard
             title="하루당 크리스탈 획득량"
-            icon={Diamond}
+            icon={Gem}
             value={`${crystalsPerDay.toLocaleString()} 개`}
             subtext={`초기 기댓값: ${initData.crystalsPerDay}`}
           />
           <DashboardCard
             title="현재 크리스탈 개수"
-            icon={Coins}
+            icon={HandCoins}
             value={`${crystals.toLocaleString()} 개`}
             subtext={`6+1 보물상자 ${initData.threshold}개치 크리스탈 모이면 오픈`}
           />

@@ -14,6 +14,7 @@ import { inventoryProps } from '@/types/inventory';
 import { splitArrayByCrystalKeyword } from '@/lib/split';
 import DashboardCard from '@/components/crystal-chart/dashboard-card';
 import { Box, Boxes } from 'lucide-react';
+import GachaResultBox from '@/components/gacha-result-box';
 
 export default function Page() {
   const [singleCount, setSingleCount] = useState(0); // 보물 1개 뽑기 카운트
@@ -81,13 +82,10 @@ export default function Page() {
             6+1개 뽑기
           </Button>
         </div>
-        <div className="relative rounded-xl overflow-hidden p-4">
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 animate-gradient"></div>
-          <div className="relative bg-slate-50 bg-opacity-60 rounded-lg p-6 h-full flex flex-col justify-center">
-            <h2 className="text-3xl text-center font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-              뽑힌 보물
-            </h2>
-            <div className="gap-4 sm:gap-8 flex flex-wrap justify-center">
+
+        {pickedItems.length > 0 && (
+          <>
+            <GachaResultBox>
               {pickedItems.map((name, index) => (
                 <Fragment key={`${name}-${index}`}>
                   {name.includes('크리스탈') ? (
@@ -104,9 +102,10 @@ export default function Page() {
                   )}
                 </Fragment>
               ))}
-            </div>
-          </div>
-        </div>
+            </GachaResultBox>
+          </>
+        )}
+
         <Inventory items={splitArrayByCrystalKeyword(inventory)} />
       </div>
     </>
