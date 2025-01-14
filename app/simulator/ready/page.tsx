@@ -34,6 +34,8 @@ import {
 } from '@/components/ui/select';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Image from 'next/image';
+import { crystalItemsData } from '@/data/lootboxData';
 import Note from '@/components/note';
 
 const FormSchema = z.object({
@@ -64,7 +66,17 @@ const FormSchema = z.object({
     .refine((val) => /^-?\d+(\.\d+)?([eE][+-]?\d+)?$/.test(val), {
       // 정규식 테스트
       message: '유효한 숫자를 입력해야 합니다.',
-    }),
+    })
+    .refine(
+      (val) => {
+        const num = Number(val);
+        return !isNaN(num) && num >= 1;
+      },
+      {
+        message:
+          '출석체크만 해도 기본적으로 1개의 크리스탈은 받을 수 있습니다.',
+      }
+    ),
   currentCrystals: z
     .number({
       required_error: '크리스탈의 개수를 필수로 입력해야 합니다.',
@@ -202,6 +214,16 @@ export default function Page() {
                   <FormDescription>
                     현재 보유하고 있는 크리스탈 보물 개수를 쉼표를 사이에 두고
                     순서대로 입력해주세요.
+                  </FormDescription>
+                  <FormDescription className="flex gap-1">
+                    {crystalItemsData.map((item) => (
+                      <Image
+                        src={item.imageUrl}
+                        alt={item.name}
+                        width={28}
+                        height={28}
+                      />
+                    ))}
                   </FormDescription>
                   <FormDescription>
                     [
