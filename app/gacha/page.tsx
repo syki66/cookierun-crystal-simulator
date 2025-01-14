@@ -47,14 +47,17 @@ export default function Page() {
         <div className="grid gap-10 grid-cols-2 md:w-1/2 mx-auto">
           <DashboardCard
             title="보물상자 1개"
-            subtext={`시도 횟수`}
-            value={singleCount.toLocaleString()}
+            subtext={`소요 크리스탈: ${(singleCount * 25).toLocaleString()}개`}
+            value={`${singleCount.toLocaleString()}회 개봉`}
             icon={Box}
           />
           <DashboardCard
             title="보물상자 6+1 세트"
-            subtext={`시도 횟수`}
-            value={multiCount.toLocaleString()}
+            subtext={`소요 크리스탈: ${(multiCount === 0
+              ? 0
+              : 119 + 108 * (multiCount - 1)
+            ).toLocaleString()}개`}
+            value={`${multiCount.toLocaleString()}회 개봉`}
             icon={Boxes}
           />
         </div>
