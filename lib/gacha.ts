@@ -168,7 +168,7 @@ export const simulator = (
     threshold
   ); // 반복 횟수와 남은 크리스탈 개수 연산
 
-  let updatedInventory: inventoryProps[] = [];
+  let updatedInventory: inventoryProps[] = inventory;
   for (let i = 0; i < loopCount; i++) {
     const pickedItems: string[] = multiGachaMachine();
 
