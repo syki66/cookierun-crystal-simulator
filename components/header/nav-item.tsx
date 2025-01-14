@@ -18,7 +18,7 @@ export default function NavItem({ href, color, children }: NavItemProps) {
       href={href}
       className={`text-white font-bold text-xs sm:text-lg sm:px-4 sm:py-2 rounded-md ${
         path.startsWith(href) ? 'bg-white/10' : ''
-      } hover:bg-white/10 hover:${color} transition-colors duration-200 break-keep `}
+      } hover:bg-white/10 ${color} transition-colors duration-200 break-keep `}
     >
       {children}
     </Link>
