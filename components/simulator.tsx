@@ -43,7 +43,7 @@ const Simulator = ({ initData }: SimulatorProps) => {
 
       _crystals += _crystalsPerDay;
 
-      const { updatedCrystals, inventory: updatedInventory } = simulator(
+      const { updatedCrystals, updatedInventory } = simulator(
         _crystals,
         _crystalsThreshold,
         _inventory

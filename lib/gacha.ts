@@ -10,7 +10,7 @@ import { inventoryProps } from '@/types/inventory';
 const pickItemFromWeightedRandom = (
   items: itemProps[],
   totalWeight: number
-) => {
+): string => {
   let random = Math.random() * totalWeight; // 0부터 totalWeight 사이의 랜덤 값 생성
 
   for (const item of items) {
@@ -19,6 +19,8 @@ const pickItemFromWeightedRandom = (
       return item.name; // 가중치가 초과된 항목 반환
     }
   }
+
+  return '선택항목없음';
 };
 
 // 가중치 총합을 반환하는 함수
@@ -26,8 +28,8 @@ const getWeightedTotal = (items: itemProps[]) =>
   items.reduce((sum: number, item: itemProps) => sum + item.weight, 0);
 
 // 가챠 뽑기 함수
-const getPickedItem = (lootboxData: itemProps[]) => {
-  const pickedItem = pickItemFromWeightedRandom(
+const getPickedItem = (lootboxData: itemProps[]): string => {
+  const pickedItem: string = pickItemFromWeightedRandom(
     lootboxData,
     getWeightedTotal(lootboxData)
   );
@@ -52,14 +54,14 @@ const crystalThresholdReducer = (crystals: number, threshold: number) => {
   return [count, crystals];
 };
 
-// 보물 뽑기 로직
-const gachaMachine = () => {
+// 6+1 보물 뽑기 로직
+export const gachaMachine = (): string[] => {
   const pickedMultiLootbox = getPickedItem(
     multiLootboxData // 최고급 보물 상자 6+1개 세트 뽑기 데이터
   );
 
   // 6+1세트 구매시 S보물 및 A보물 등장 확률별 분기 처리
-  const _pickedItems = [];
+  const _pickedItems: string[] = [];
   switch (pickedMultiLootbox) {
     case 'S등급 보물 3개 + A등급 보물 4개':
       _pickedItems.push(
@@ -115,6 +117,37 @@ const gachaMachine = () => {
   return _pickedItems;
 };
 
+export const updateInventory = (
+  pickedItems: string[],
+  inventory: inventoryProps[]
+): inventoryProps[] => {
+  if (pickedItems === undefined) {
+    return inventory;
+  }
+
+  const inventoryClone = structuredClone(inventory);
+
+  pickedItems.forEach((pickedItem) => {
+    const foundIndex = inventoryClone.findIndex(
+      (inventoryItem) => inventoryItem.name === pickedItem
+    );
+    if (foundIndex === -1 && pickedItem) {
+      inventoryClone.push({
+        name: pickedItem,
+        count: 1,
+        expectedValue:
+          [...lootboxDataSGrade, ...lootboxDataAGrade].find(
+            (x) => x.name === pickedItem
+          )?.expectedValue || 0,
+      });
+    } else {
+      inventoryClone[foundIndex].count++;
+    }
+  });
+
+  return inventoryClone;
+};
+
 // 시뮬레이터 로직
 export const simulator = (
   crystals: number,
@@ -126,35 +159,15 @@ export const simulator = (
     threshold
   ); // 반복 횟수와 남은 크리스탈 개수 연산
 
-  let lastPickedItems: string[] = []; // 실시간 보물 뽑기 데이터로 활용하기 위함
-
+  let updatedInventory: inventoryProps[] = [];
   for (let i = 0; i < loopCount; i++) {
-    const pickedItems = gachaMachine();
-    lastPickedItems = pickedItems.filter(
-      (item): item is string => item !== undefined
-    );
+    const pickedItems: string[] = gachaMachine();
 
     // 인벤토리 업데이트
-    pickedItems.forEach((pickedItem) => {
-      const foundIndex = inventory.findIndex(
-        (inventoryItem) => inventoryItem.name === pickedItem
-      );
-      if (foundIndex === -1 && pickedItem) {
-        inventory.push({
-          name: pickedItem,
-          count: 1,
-          expectedValue:
-            [...lootboxDataSGrade, ...lootboxDataAGrade].find(
-              (x) => x.name === pickedItem
-            )?.expectedValue || 0,
-        });
-      } else {
-        inventory[foundIndex].count++;
-      }
-    });
+    updatedInventory = updateInventory(pickedItems, inventory);
   }
 
-  return { updatedCrystals, inventory, lastPickedItems };
+  return { updatedCrystals, updatedInventory };
 };
 
 // 초기 인벤토리 데이터  생성 함수

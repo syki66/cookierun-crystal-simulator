@@ -4,7 +4,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import RegularCard from '@/components/inventory/regular-card';
 import SpecialCard from '@/components/inventory/special-card';
-import { simulator } from '@/lib/gacha';
+import { gachaMachine, updateInventory } from '@/lib/gacha';
 import Inventory from '@/components/inventory';
 import { inventoryProps } from '@/types/inventory';
 import { splitArrayByCrystalKeyword } from '@/lib/split';
@@ -17,14 +17,11 @@ export default function Page() {
   useEffect(() => {
     // 1회 뽑기마다 실행됨
     if (count > 0) {
-      const { inventory: updatedInventory, lastPickedItems } = simulator(
-        119,
-        119,
-        inventory
-      ); // 1회 뽑기 후 인벤토리 업데이트
+      const items = gachaMachine();
+      const updatedInventory = updateInventory(items, inventory);
 
       setInventory(updatedInventory);
-      setPickedItems(lastPickedItems);
+      setPickedItems(items);
     }
   }, [count]);
 
