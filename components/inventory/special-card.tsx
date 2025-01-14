@@ -6,7 +6,6 @@ import {
 } from '@/components/ui/card';
 import { crystalItemsData } from '@/data/lootboxData';
 import Image from 'next/image';
-import { useEffect } from 'react';
 
 interface SpecialCardProps {
   name: string;
