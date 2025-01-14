@@ -365,3 +365,15 @@ export const multiLootboxData = [
   { name: 'S등급 보물 6개 + A등급 보물 1개', weight: 0.0544 },
   { name: 'S등급 보물 7개', weight: 0.0078 },
 ];
+
+export const crystalItemsData = [
+  { name: '레어 크리스탈 사파이어', imageUrl: '/crystals/1.webp' },
+  { name: '희귀한 크리스탈 조개', imageUrl: '/crystals/2.webp' },
+  { name: '커다란 크리스탈 원석', imageUrl: '/crystals/3.webp' },
+  { name: '최고급 크리스탈 보석함', imageUrl: '/crystals/4.webp' },
+  { name: '청명한 크리스탈 자명종', imageUrl: '/crystals/5.webp' },
+  { name: '왕 크리스탈 보석반지', imageUrl: '/crystals/6.webp' },
+  { name: '장식용 크리스탈 포크스푼', imageUrl: '/crystals/7.webp' },
+  { name: '마음에 품은 신성한 크리스탈 검', imageUrl: '/crystals/8.webp' },
+  { name: '진주 크리스탈 귀걸이', imageUrl: '/crystals/9.webp' },
+];

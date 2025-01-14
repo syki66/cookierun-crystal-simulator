@@ -3,6 +3,7 @@ import {
   multiLootboxData,
   lootboxDataAGrade,
   lootboxDataSGrade,
+  crystalItemsData,
 } from '@/data/lootboxData';
 import { inventoryProps } from '@/types/inventory';
 
@@ -184,24 +185,13 @@ export const initInventoryData = (
   crystals: number[],
   defaultCrystal: number
 ) => {
-  const names = [
-    '레어 크리스탈 사파이어',
-    '희귀한 크리스탈 조개',
-    '커다란 크리스탈 원석',
-    '최고급 크리스탈 보석함',
-    '청명한 크리스탈 자명종',
-    '왕 크리스탈 보석반지',
-    '장식용 크리스탈 포크스푼',
-    '마음에 품은 신성한 크리스탈 검',
-    '진주 크리스탈 귀걸이',
-  ];
-
-  const initialInventory = names.map((name, index) => ({
-    name,
+  const initialInventory = crystalItemsData.map((item, index) => ({
+    name: item.name,
     count: crystals[index],
     expectedValue:
-      [...lootboxDataSGrade, ...lootboxDataAGrade].find((x) => x.name === name)
-        ?.expectedValue || 0,
+      [...lootboxDataSGrade, ...lootboxDataAGrade].find(
+        (x) => x.name === item.name
+      )?.expectedValue || 0,
   }));
 
   initialInventory.push({
