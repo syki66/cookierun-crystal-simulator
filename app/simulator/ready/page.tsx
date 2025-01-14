@@ -21,7 +21,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { CalendarIcon } from 'lucide-react';
+import { CalendarIcon, Loader2 } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import { Card, CardHeader } from '@/components/ui/card';
@@ -88,6 +88,7 @@ export default function Page() {
   const router = useRouter();
 
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [isPending, setIsPending] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -113,6 +114,7 @@ export default function Page() {
       threshold,
     } = data;
     const crystalsArray = crystals.split(',').map((e) => e.trim()); // 공백 제거
+    setIsPending(true);
     router.push(
       `/simulator/show?timestamp=${date.getTime()}&crystals=${crystalsArray}&defaultCrystal=${defaultCrystal}&currentCrystals=${currentCrystals}&skip=${skip}&speed=${speed}&threshold=${threshold}`
     );
@@ -398,8 +400,23 @@ export default function Page() {
           <Button
             type="submit"
             className="w-full h-16 my-10 text-white text-4xl bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 hover:from-purple-500 hover:via-pink-600 hover:to-red-600"
+            disabled={isPending}
           >
-            시뮬레이션 시작하기
+            {isPending ? (
+              <>
+                <Loader2 className="w-12 h-12 animate-spin text-blue-300" />
+                <Loader2 className="w-12 h-12 animate-pulse text-red-300" />
+                <Loader2 className="w-12 h-12 animate-ping text-yellow-300" />
+                <Loader2 className="w-12 h-12 animate-bounce text-lime-300" />
+                <span className="text-2xl animate-spin">준비중입니다</span>
+                <Loader2 className="w-12 h-12 animate-ping text-indigo-300" />
+                <Loader2 className="w-12 h-12 animate-spin text-pink-300" />
+                <Loader2 className="w-12 h-12 animate-pulse text-teal-300" />
+                <Loader2 className="w-12 h-12 animate-spin text-amber-300" />
+              </>
+            ) : (
+              '시뮬레이션 시작하기'
+            )}
           </Button>
         </form>
       </Form>
