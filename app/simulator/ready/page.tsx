@@ -33,10 +33,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { crystalItemsData } from '@/data/lootboxData';
 import Note from '@/components/note';
+import { getExpectedValueByName } from '@/lib/gacha';
 
 const FormSchema = z.object({
   date: z.date({
@@ -102,6 +103,9 @@ export default function Page() {
 
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isPending, setIsPending] = useState(false);
+  const [crystalExpValue, setCrystalExpValue] = useState<
+    number | string | null
+  >(null);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -115,6 +119,8 @@ export default function Page() {
       speed: '1',
     },
   });
+
+  const crystalsValue = form.watch('crystals');
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     const {
@@ -132,6 +138,41 @@ export default function Page() {
       `/simulator/show?timestamp=${date.getTime()}&crystals=${crystalsArray}&defaultCrystal=${defaultCrystal}&currentCrystals=${currentCrystals}&skip=${skip}&speed=${speed}&threshold=${threshold}`
     );
   };
+
+  const calculateCrystalExp = () => {
+    try {
+      const parts = crystalsValue.split(',');
+
+      // 데이터 형식이 맞다면 통과 아니라면 - 문자 송출
+      if (
+        parts.length !== 9 ||
+        !parts.every((part) => /^\d+$/.test(part.trim()))
+      ) {
+        throw new Error('-');
+      }
+
+      // 총 기댓값 계산
+      let totalExpectedVal = 0;
+      const crystalArray = parts.map(Number);
+      crystalItemsData.forEach((item, index) => {
+        const expVal = getExpectedValueByName(item.name); // 보물의 기댓값
+        const count = crystalArray[index]; // 개수
+        totalExpectedVal += count * expVal;
+      });
+
+      setCrystalExpValue(Number(totalExpectedVal.toFixed(2)));
+    } catch (error) {
+      if (error instanceof Error) {
+        setCrystalExpValue(error.message);
+      } else {
+        setCrystalExpValue(String(error));
+      }
+    }
+  };
+
+  useEffect(() => {
+    calculateCrystalExp(); // 실시간으로 보물 총 기댓값 계산
+  }, [crystalsValue]);
 
   // 말 다듬고 커밋하기
   return (
@@ -203,7 +244,10 @@ export default function Page() {
                 <FormItem className="mb-10">
                   <FormLabel>
                     크리스탈 보물들의 개수
-                    <span className="text-red-500">*</span>
+                    <span className="text-red-500">*</span>{' '}
+                    <span className="text-sm text-muted-foreground">
+                      ({crystalExpValue})
+                    </span>
                   </FormLabel>
                   <FormControl>
                     <Input
@@ -218,6 +262,7 @@ export default function Page() {
                   <FormDescription className="flex gap-1">
                     {crystalItemsData.map((item) => (
                       <Image
+                        key={item.name}
                         src={item.imageUrl}
                         alt={item.name}
                         width={28}

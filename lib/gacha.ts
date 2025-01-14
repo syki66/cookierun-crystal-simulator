@@ -145,10 +145,7 @@ export const updateInventory = (
       inventoryClone.push({
         name: pickedItem,
         count: 1,
-        expectedValue:
-          [...lootboxDataSGrade, ...lootboxDataAGrade].find(
-            (x) => x.name === pickedItem
-          )?.expectedValue || 0,
+        expectedValue: getExpectedValueByName(pickedItem),
       });
     } else {
       inventoryClone[foundIndex].count++;
@@ -156,6 +153,14 @@ export const updateInventory = (
   });
 
   return inventoryClone;
+};
+
+// 이름값으로 크리스탈 보물 기대값을 리턴해주는 함수
+export const getExpectedValueByName = (name: string): number => {
+  const expectedValue =
+    [...lootboxDataSGrade, ...lootboxDataAGrade].find((x) => x.name === name)
+      ?.expectedValue || 0;
+  return expectedValue;
 };
 
 // 시뮬레이터 로직
@@ -188,10 +193,7 @@ export const initInventoryData = (
   const initialInventory = crystalItemsData.map((item, index) => ({
     name: item.name,
     count: crystals[index],
-    expectedValue:
-      [...lootboxDataSGrade, ...lootboxDataAGrade].find(
-        (x) => x.name === item.name
-      )?.expectedValue || 0,
+    expectedValue: getExpectedValueByName(item.name),
   }));
 
   initialInventory.push({
