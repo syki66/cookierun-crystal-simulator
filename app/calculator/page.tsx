@@ -141,7 +141,7 @@ export default function Page() {
             <div className="flex flex-col items-center">
               <Button
                 type="submit"
-                className="w-full md:w-[576px] h-16  my-10 text-white text-4xl bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 hover:from-purple-500 hover:via-pink-600 hover:to-red-600"
+                className="w-full md:w-[576px] h-16 my-10 select-none text-white text-4xl bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 hover:from-purple-500 hover:via-pink-600 hover:to-red-600"
               >
                 계산하기
               </Button>

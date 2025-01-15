@@ -65,7 +65,7 @@ export default function Page() {
         <div className="grid gap-6 grid-cols-2 md:w-[750px] mx-auto mb-10">
           <Button
             type="submit"
-            className="w-full h-16 my-10 text-white text-4xl bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 hover:from-purple-500 hover:via-pink-600 hover:to-red-600"
+            className="w-full h-16 my-10 select-none text-white text-2xl md:text-4xl bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 hover:from-purple-500 hover:via-pink-600 hover:to-red-600"
             onClick={() => {
               setSingleCount((prev) => prev + 1);
             }}
@@ -74,7 +74,7 @@ export default function Page() {
           </Button>
           <Button
             type="submit"
-            className="w-full h-16 my-10 text-white text-4xl bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 hover:from-purple-500 hover:via-pink-600 hover:to-red-600"
+            className="w-full h-16 my-10 select-none text-white text-2xl md:text-4xl bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 hover:from-purple-500 hover:via-pink-600 hover:to-red-600"
             onClick={() => {
               setMultiCount((prev) => prev + 1);
             }}
