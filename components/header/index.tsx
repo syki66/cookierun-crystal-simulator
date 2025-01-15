@@ -7,7 +7,7 @@ const Header = () => {
         <ul className="flex justify-center space-x-8">
           <li>
             <NavItem href="/simulator/ready" color="hover:text-blue-300">
-              기댓값 시뮬레이터
+              기댓값 시뮬레이션
             </NavItem>
           </li>
           <li>
@@ -17,7 +17,7 @@ const Header = () => {
           </li>
           <li>
             <NavItem href="/gacha" color="hover:text-green-300">
-              보물 뽑기 시뮬레이터
+              보물 뽑기 시뮬레이션
             </NavItem>
           </li>
         </ul>

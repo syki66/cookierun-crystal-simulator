@@ -16,8 +16,9 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: '쿠키런 시뮬레이터',
-  description: '쿠키런 시뮬레이터',
+  title: '쿠키런 크리스탈 시뮬레이션',
+  description:
+    '카카오 쿠키런 모바일 게임에서 현재 크리스탈 보유효과 보물들로 미래 크리스탈 기댓값이 얼마나 늘어날 수 있는지 실시간으로 시각화하여 체험해 볼 수 있는 시뮬레이션 사이트 입니다.',
 };
 
 export default function RootLayout({

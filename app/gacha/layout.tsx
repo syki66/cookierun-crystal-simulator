@@ -1,4 +1,11 @@
+import { Metadata } from 'next';
 import { ReactNode } from 'react';
+
+export const metadata: Metadata = {
+  title: '쿠키런 보물 뽑기 시뮬레이션',
+  description:
+    '카카오 쿠키런 모바일 게임에서 최고급 보물상자 1개 또는 6+1개 세트 뽑기를 체험해 볼 수 있는 시뮬레이션 입니다.',
+};
 
 interface LayoutProps {
   children: ReactNode;

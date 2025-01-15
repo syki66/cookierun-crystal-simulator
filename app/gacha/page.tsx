@@ -15,6 +15,7 @@ import { splitArrayByCrystalKeyword } from '@/lib/split';
 import DashboardCard from '@/components/crystal-chart/dashboard-card';
 import { Box, Boxes } from 'lucide-react';
 import GachaResultBox from '@/components/gacha-result-box';
+import Note from '@/components/note';
 
 export default function Page() {
   const [singleCount, setSingleCount] = useState(0); // 보물 1개 뽑기 카운트
@@ -107,6 +108,26 @@ export default function Page() {
         )}
 
         <Inventory items={splitArrayByCrystalKeyword(inventory)} />
+
+        <div className="w-[750px] mx-auto mt-20">
+          <Note>
+            * 쿠키런 크리스탈 기댓값 시뮬레이션은{' '}
+            <a
+              href="https://cookierun.zendesk.com/hc/ko/articles/28813434627993-%EC%83%81%EC%84%B8%EC%A0%95%EB%B3%B4"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+            >
+              쿠키런 고객센터에 공개된 확률정보
+            </a>
+            를 바탕으로 제작되었습니다.
+            <br />* 정상적인 범위를 벗어난 숫자를 입력하거나 오랜시간
+            시뮬레이션을 실행하면 웹 브라우저가 느려지거나 정지할 수 있습니다.
+            <br />* 보물상자 오픈 트리거가 발동하게 되면 현재 보유하고 있는
+            크리스탈이 최대로 소진됩니다. <br />* 크리스탈 기댓값을 계산할 때,
+            보물은 +9강으로 가정하고 계산됩니다.
+          </Note>
+        </div>
       </div>
     </>
   );
