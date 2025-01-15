@@ -50,8 +50,8 @@ const CrystalInputCard: React.FC<CrystalCardProps> = ({
             <Image
               src={item.imageUrl}
               alt={item.name}
-              width={28}
-              height={28}
+              width={48}
+              height={48}
               className="mr-2"
             />
           )}
