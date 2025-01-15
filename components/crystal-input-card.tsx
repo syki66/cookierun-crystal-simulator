@@ -1,3 +1,4 @@
+import { CalculatorFormSchema } from '@/app/calculator/page';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   FormControl,
@@ -9,6 +10,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { getExpectedValueByName } from '@/lib/gacha';
 import Image from 'next/image';
+import { useForm } from 'react-hook-form';
 
 interface ColorScheme {
   bg: string;
@@ -24,7 +26,9 @@ interface Item {
 interface CrystalCardProps {
   colorScheme: ColorScheme;
   item: Item;
-  form: any; // 또는 구체적인 타입
+  form: CalculatorFormSchema & {
+    control: ReturnType<typeof useForm>['control'];
+  };
   name: string;
   placeholder: string;
 }

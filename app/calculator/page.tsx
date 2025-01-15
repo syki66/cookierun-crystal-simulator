@@ -71,6 +71,8 @@ const FormSchema = z.object({
     .optional(),
 });
 
+export type CalculatorFormSchema = z.infer<typeof FormSchema>;
+
 export default function Page() {
   const [expectedValue, setExpectedValue] = useState<number>(0);
 
