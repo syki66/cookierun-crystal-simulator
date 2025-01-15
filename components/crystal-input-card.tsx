@@ -18,7 +18,7 @@ interface ColorScheme {
 
 interface Item {
   name: string;
-  imageUrl: string;
+  imageUrl?: string;
 }
 
 interface CrystalCardProps {
@@ -26,6 +26,7 @@ interface CrystalCardProps {
   item: Item;
   form: any; // 또는 구체적인 타입
   name: string;
+  placeholder: string;
 }
 
 const CrystalInputCard: React.FC<CrystalCardProps> = ({
@@ -33,6 +34,7 @@ const CrystalInputCard: React.FC<CrystalCardProps> = ({
   form,
   name,
   item,
+  placeholder,
 }) => {
   return (
     <Card
@@ -40,13 +42,15 @@ const CrystalInputCard: React.FC<CrystalCardProps> = ({
     >
       <CardHeader className="p-4">
         <CardTitle className={`${colorScheme.text} font-bold text-sm flex`}>
-          <Image
-            src={item.imageUrl}
-            alt={item.name}
-            width={28}
-            height={28}
-            className="mr-2"
-          />
+          {item.imageUrl && (
+            <Image
+              src={item.imageUrl}
+              alt={item.name}
+              width={28}
+              height={28}
+              className="mr-2"
+            />
+          )}
           <div className="flex items-center">{item.name}</div>
         </CardTitle>
       </CardHeader>
@@ -59,11 +63,14 @@ const CrystalInputCard: React.FC<CrystalCardProps> = ({
               render={({ field }) => (
                 <FormItem className="mb-10">
                   <FormLabel className={`${colorScheme.text} text-xs`}>
-                    기댓값: {getExpectedValueByName(item.name)}
+                    기댓값:{' '}
+                    {getExpectedValueByName(item.name) === 0
+                      ? 1
+                      : getExpectedValueByName(item.name)}
                   </FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="개수 입력"
+                      placeholder={placeholder}
                       {...field}
                       className={`${colorScheme.border} ${colorScheme.text} placeholder:${colorScheme.text} placeholder:opacity-50 bg-white bg-opacity-50 text-sm`}
                     />

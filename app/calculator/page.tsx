@@ -62,9 +62,12 @@ const FormSchema = z.object({
     .string()
     .regex(/^\d*$/, '자연수를 숫자만 입력해주세요.')
     .optional(),
-  crystal_9: z
+  otherCrystal: z
     .string()
-    .regex(/^\d*$/, '자연수를 숫자만 입력해주세요.')
+    .refine((val) => /^-?\d+(\.\d+)?([eE][+-]?\d+)?$/.test(val), {
+      message: '유효한 숫자를 입력해야 합니다.',
+    })
+    .or(z.literal(''))
     .optional(),
 });
 
@@ -83,7 +86,7 @@ export default function Page() {
       crystal_6: '',
       crystal_7: '',
       crystal_8: '',
-      crystal_9: '',
+      otherCrystal: '',
     },
   });
 
@@ -100,10 +103,11 @@ export default function Page() {
   };
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
-    const crystalValues = Object.values(data).map(
-      (value) => Number(value) || 0
-    );
-    const _expectedValue = calculateExpectedValue(crystalValues);
+    const crystalValues = Object.values(data)
+      .slice(0, -1)
+      .map((value) => Number(value) || 0);
+    const _expectedValue =
+      calculateExpectedValue(crystalValues) + (Number(data.otherCrystal) || 0);
     setExpectedValue(_expectedValue);
   };
 
@@ -120,8 +124,16 @@ export default function Page() {
                   form={form}
                   name={`crystal_${index}`}
                   item={item}
+                  placeholder="개수 입력"
                 />
               ))}
+              <CrystalInputCard
+                colorScheme={colorSchemes[9]}
+                form={form}
+                name="otherCrystal"
+                placeholder="기댓값 입력"
+                item={{ name: '기타 크리스탈 보물들의 기댓값' }}
+              />
             </div>
 
             <div className="flex flex-col items-center">
