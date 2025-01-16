@@ -52,7 +52,7 @@ const CrystalInputCard: React.FC<CrystalCardProps> = ({
               alt={item.name}
               width={48}
               height={48}
-              className="mr-2"
+              className="mr-2 w-10 h-10 md:w-12 md:h-12"
             />
           )}
           <div className="flex items-center">{item.name}</div>

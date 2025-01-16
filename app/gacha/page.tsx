@@ -109,7 +109,7 @@ export default function Page() {
 
         <Inventory items={splitArrayByCrystalKeyword(inventory)} />
 
-        <div className="w-[750px] mx-auto mt-20">
+        <div className="md:w-[750px] mx-auto mt-20">
           <Note>
             * 쿠키런 크리스탈 기댓값 시뮬레이션은{' '}
             <a
