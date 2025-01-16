@@ -56,7 +56,7 @@ const CrystalInputCard: React.FC<CrystalCardProps> = ({
               className="mr-2 w-10 h-10 md:w-12 md:h-12"
             />
           ) : (
-            <Gem className="mr-2 w-10 h-10 md:w-12 md:h-12 text-blue-500 bg-sky-300 rounded-lg" />
+            <Gem className="mr-2 min-w-10 min-h-10 md:w-12 md:h-12 text-blue-500 bg-sky-300 rounded-lg" />
           )}
           <div className="flex items-center">{item.name}</div>
         </CardTitle>
@@ -79,7 +79,7 @@ const CrystalInputCard: React.FC<CrystalCardProps> = ({
                     <Input
                       placeholder={placeholder}
                       {...field}
-                      className={`${colorScheme.border} ${colorScheme.text} placeholder:${colorScheme.text} placeholder:opacity-50 bg-white bg-opacity-50 text-base`}
+                      className={`${colorScheme.border} ${colorScheme.text} placeholder:${colorScheme.text} placeholder:opacity-50 bg-white bg-opacity-50`}
                     />
                   </FormControl>
                   <FormMessage />
