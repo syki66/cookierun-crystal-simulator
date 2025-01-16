@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { getExpectedValueByName } from '@/lib/gacha';
+import { Gem } from 'lucide-react';
 import Image from 'next/image';
 import { useForm } from 'react-hook-form';
 
@@ -46,7 +47,7 @@ const CrystalInputCard: React.FC<CrystalCardProps> = ({
     >
       <CardHeader className="p-4">
         <CardTitle className={`${colorScheme.text} font-bold text-sm flex`}>
-          {item.imageUrl && (
+          {item.imageUrl ? (
             <Image
               src={item.imageUrl}
               alt={item.name}
@@ -54,6 +55,8 @@ const CrystalInputCard: React.FC<CrystalCardProps> = ({
               height={48}
               className="mr-2 w-10 h-10 md:w-12 md:h-12"
             />
+          ) : (
+            <Gem className="mr-2 w-10 h-10 md:w-12 md:h-12 text-blue-500 bg-sky-300 rounded-lg" />
           )}
           <div className="flex items-center">{item.name}</div>
         </CardTitle>
@@ -76,7 +79,7 @@ const CrystalInputCard: React.FC<CrystalCardProps> = ({
                     <Input
                       placeholder={placeholder}
                       {...field}
-                      className={`${colorScheme.border} ${colorScheme.text} placeholder:${colorScheme.text} placeholder:opacity-50 bg-white bg-opacity-50 text-sm`}
+                      className={`${colorScheme.border} ${colorScheme.text} placeholder:${colorScheme.text} placeholder:opacity-50 bg-white bg-opacity-50 text-base`}
                     />
                   </FormControl>
                   <FormMessage />
