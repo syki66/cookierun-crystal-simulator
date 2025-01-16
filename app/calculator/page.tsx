@@ -29,42 +29,52 @@ const colorSchemes = [
 const FormSchema = z.object({
   crystal_0: z
     .string()
+    .max(4, '최대 4자까지 입력 가능합니다.')
     .regex(/^\d*$/, '자연수를 숫자만 입력해주세요.')
     .optional(),
   crystal_1: z
     .string()
+    .max(4, '최대 4자까지 입력 가능합니다.')
     .regex(/^\d*$/, '자연수를 숫자만 입력해주세요.')
     .optional(),
   crystal_2: z
     .string()
+    .max(4, '최대 4자까지 입력 가능합니다.')
     .regex(/^\d*$/, '자연수를 숫자만 입력해주세요.')
     .optional(),
   crystal_3: z
     .string()
+    .max(4, '최대 4자까지 입력 가능합니다.')
     .regex(/^\d*$/, '자연수를 숫자만 입력해주세요.')
     .optional(),
   crystal_4: z
     .string()
+    .max(4, '최대 4자까지 입력 가능합니다.')
     .regex(/^\d*$/, '자연수를 숫자만 입력해주세요.')
     .optional(),
   crystal_5: z
     .string()
+    .max(4, '최대 4자까지 입력 가능합니다.')
     .regex(/^\d*$/, '자연수를 숫자만 입력해주세요.')
     .optional(),
   crystal_6: z
     .string()
+    .max(4, '최대 4자까지 입력 가능합니다.')
     .regex(/^\d*$/, '자연수를 숫자만 입력해주세요.')
     .optional(),
   crystal_7: z
     .string()
+    .max(4, '최대 4자까지 입력 가능합니다.')
     .regex(/^\d*$/, '자연수를 숫자만 입력해주세요.')
     .optional(),
   crystal_8: z
     .string()
+    .max(4, '최대 4자까지 입력 가능합니다.')
     .regex(/^\d*$/, '자연수를 숫자만 입력해주세요.')
     .optional(),
   otherCrystal: z
     .string()
+    .max(6, '최대 6자까지 입력 가능합니다.')
     .refine((val) => /^-?\d+(\.\d+)?([eE][+-]?\d+)?$/.test(val), {
       message: '유효한 숫자를 입력해야 합니다.',
     })
