@@ -20,6 +20,11 @@ const Header = () => {
               보물 뽑기 시뮬레이션
             </NavItem>
           </li>
+          <li>
+            <NavItem href="https://redeposit.syki66.com" color="">
+              다른 제품 구경가기
+            </NavItem>
+          </li>
         </ul>
       </nav>
     </header>
