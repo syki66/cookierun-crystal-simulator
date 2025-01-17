@@ -113,10 +113,10 @@ export default function Page() {
       date: new Date(),
       currentCrystals: 1000,
       crystals: '0,0,0,0,0,0,0,0,0',
-      defaultCrystal: '10',
+      defaultCrystal: '30',
       threshold: '1',
       skip: 10,
-      speed: '16',
+      speed: '8',
     },
   });
 
@@ -505,6 +505,7 @@ export default function Page() {
         <br />* 보물상자 오픈 트리거가 발동하게 되면 현재 보유하고 있는
         크리스탈이 최대로 소진됩니다. <br />* 크리스탈 기댓값을 계산할 때,
         보물은 +9강으로 가정하고 계산됩니다.
+        <br />* 하루당 크리스탈 획득량은 반올림되어 자연수로 표기됩니다.
       </Note>
     </div>
   );

@@ -76,36 +76,34 @@ const Simulator = ({ initData }: SimulatorProps) => {
 
   return (
     <>
-      <div className="max-w-screen-2xl mx-auto">
-        <div className="grid gap-4 grid-cols-2 md:grid-cols-2 lg:grid-cols-4 mb-10">
-          <DashboardCard
-            title="날짜"
-            icon={Calendar}
-            value={`${addDaysToTimestamp(initData.timestamp, days)}`}
-            subtext={`시작일: ${formatTimestampToDate(initData.timestamp)}`}
-          />
-          <DashboardCard
-            title="경과"
-            icon={Tally5}
-            value={`${convertToYearsMonthDays(initData.timestamp, days)}`}
-            subtext={`D+${days}`}
-          />
-          <DashboardCard
-            title="하루당 크리스탈 획득량"
-            icon={Gem}
-            value={`${crystalsPerDay.toLocaleString()} 개`}
-            subtext={`초기 기댓값: ${initData.crystalsPerDay}`}
-          />
-          <DashboardCard
-            title="현재 크리스탈 개수"
-            icon={HandCoins}
-            value={`${crystals.toLocaleString()} 개`}
-            subtext={`6+1 보물상자 ${initData.threshold}개치 크리스탈 모이면 오픈`}
-          />
-        </div>
-        <CrystalChart chartData={chartData} />
-        <Inventory items={splitArrayByCrystalKeyword(inventory)} />
+      <div className="grid gap-4 grid-cols-2 md:grid-cols-2 lg:grid-cols-4 mb-10">
+        <DashboardCard
+          title="날짜"
+          icon={Calendar}
+          value={`${addDaysToTimestamp(initData.timestamp, days)}`}
+          subtext={`시작일: ${formatTimestampToDate(initData.timestamp)}`}
+        />
+        <DashboardCard
+          title="경과"
+          icon={Tally5}
+          value={`${convertToYearsMonthDays(initData.timestamp, days)}`}
+          subtext={`D+${days}`}
+        />
+        <DashboardCard
+          title="하루당 크리스탈 획득량"
+          icon={Gem}
+          value={`${crystalsPerDay.toLocaleString()} 개`}
+          subtext={`초기 기댓값: ${initData.crystalsPerDay}`}
+        />
+        <DashboardCard
+          title="현재 크리스탈 개수"
+          icon={HandCoins}
+          value={`${crystals.toLocaleString()} 개`}
+          subtext={`6+1 보물상자 ${initData.threshold}개치 크리스탈 모이면 오픈`}
+        />
       </div>
+      <CrystalChart chartData={chartData} />
+      <Inventory items={splitArrayByCrystalKeyword(inventory)} />
     </>
   );
 };
