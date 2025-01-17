@@ -111,12 +111,12 @@ export default function Page() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       date: new Date(),
-      currentCrystals: 0,
+      currentCrystals: 1000,
       crystals: '0,0,0,0,0,0,0,0,0',
-      defaultCrystal: '1',
+      defaultCrystal: '10',
       threshold: '1',
-      skip: 1,
-      speed: '1',
+      skip: 10,
+      speed: '16',
     },
   });
 
@@ -454,6 +454,7 @@ export default function Page() {
                       <SelectItem value="4">x4</SelectItem>
                       <SelectItem value="8">x8</SelectItem>
                       <SelectItem value="16">x16</SelectItem>
+                      <SelectItem value="32">x32</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormDescription>
