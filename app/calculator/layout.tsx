@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { ReactNode } from 'react';
 import dynamic from 'next/dynamic';
+import Note from '@/components/note';
 
 export const metadata: Metadata = {
   title: '쿠키런 크리스탈 기댓값 계산기 - 카쿠 크보 기댓값 계산기',
@@ -34,6 +35,13 @@ export default function Layout({ children }: LayoutProps) {
 
       <div className="mt-5">
         <KakaoAdfit adUnit={'DAN-F0gt5sOnJ8XI8YL6'} adSize={['300', '250']} />
+      </div>
+
+      <div className="max-w-screen-sm mx-auto mt-10">
+        <Note>
+          * 크리스탈 기댓값을 계산할 때, 보물은 +9강으로 가정하고 계산됩니다.
+          <br />* 빈 값일 경우 계산에서 제외됩니다.
+        </Note>
       </div>
     </>
   );

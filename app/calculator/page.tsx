@@ -1,7 +1,6 @@
 'use client';
 
 import CrystalInputCard from '@/components/crystal-input-card';
-import Note from '@/components/note';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Form } from '@/components/ui/form';
@@ -169,12 +168,6 @@ export default function Page() {
                   </div>
                 </CardContent>
               </Card>
-              <div className="mt-10">
-                <Note>
-                  * 크리스탈 기댓값을 계산할 때, 보물은 +9강으로 가정하고
-                  계산됩니다.
-                </Note>
-              </div>
             </div>
           </form>
         </Form>
