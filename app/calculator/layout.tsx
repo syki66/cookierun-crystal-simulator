@@ -33,15 +33,15 @@ export default function Layout({ children }: LayoutProps) {
 
       {children}
 
-      <div className="mt-5">
-        <KakaoAdfit adUnit={'DAN-F0gt5sOnJ8XI8YL6'} adSize={['300', '250']} />
+      <div className="w-full md:w-96 mx-auto mt-5">
+        <Note>
+          * 보물은 +9강으로 가정하고 계산됩니다. <br />* 빈 값일 경우 계산에서
+          제외됩니다.
+        </Note>
       </div>
 
-      <div className="max-w-screen-sm mx-auto mt-10">
-        <Note>
-          * 크리스탈 기댓값을 계산할 때, 보물은 +9강으로 가정하고 계산됩니다.
-          <br />* 빈 값일 경우 계산에서 제외됩니다.
-        </Note>
+      <div className="mt-10">
+        <KakaoAdfit adUnit={'DAN-F0gt5sOnJ8XI8YL6'} adSize={['300', '250']} />
       </div>
     </>
   );

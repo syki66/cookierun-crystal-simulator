@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { ReactNode } from 'react';
 import dynamic from 'next/dynamic';
+import Note from '@/components/note';
 
 export const metadata: Metadata = {
   title: '쿠키런 보물 뽑기 시뮬레이션',
@@ -31,6 +32,23 @@ export default function Layout({ children }: LayoutProps) {
       </div>
 
       {children}
+
+      <div className="md:w-[750px] mx-auto mt-20">
+        <Note>
+          * 쿠키런 최고급 보물상자 뽑기 시뮬레이션은{' '}
+          <a
+            href="https://cookierun.zendesk.com/hc/ko/articles/28813434627993-%EC%83%81%EC%84%B8%EC%A0%95%EB%B3%B4"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            쿠키런 고객센터에 공개된 확률정보
+          </a>
+          를 바탕으로 제작되었습니다.
+          <br />* 크리스탈 기댓값을 계산할 때, 보물은 +9강으로 가정하고
+          계산됩니다.
+        </Note>
+      </div>
 
       <div className="mt-5">
         <KakaoAdfit adUnit={'DAN-F0gt5sOnJ8XI8YL6'} adSize={['300', '250']} />
