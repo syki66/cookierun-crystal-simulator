@@ -1,4 +1,4 @@
-# Cookierun Crystal Simulator
+# 쿠키런 크리스탈 시뮬레이터
 
 카카오 쿠키런 모바일 게임의 크리스탈 보유효과 보물들을 사용자가 입력하여 미래 크리스탈 기댓값을 실시간으로 예측해서 시각화해주는 시뮬레이션 웹사이트 [(Live Demo)](https://cookierun.syki66.com)
 
