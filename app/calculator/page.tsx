@@ -81,6 +81,11 @@ const FormSchema = z.object({
     .optional(),
 });
 
+const getSavedCrystals = (index: number) => {
+  const crystals = localStorage.getItem('crystals');
+  return crystals ? String(JSON.parse(crystals)[index]) : '';
+};
+
 export type CalculatorFormSchema = z.infer<typeof FormSchema>;
 
 export default function Page() {
@@ -89,16 +94,16 @@ export default function Page() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      crystal_0: '',
-      crystal_1: '',
-      crystal_2: '',
-      crystal_3: '',
-      crystal_4: '',
-      crystal_5: '',
-      crystal_6: '',
-      crystal_7: '',
-      crystal_8: '',
-      otherCrystal: '',
+      crystal_0: getSavedCrystals(0),
+      crystal_1: getSavedCrystals(1),
+      crystal_2: getSavedCrystals(2),
+      crystal_3: getSavedCrystals(3),
+      crystal_4: getSavedCrystals(4),
+      crystal_5: getSavedCrystals(5),
+      crystal_6: getSavedCrystals(6),
+      crystal_7: getSavedCrystals(7),
+      crystal_8: getSavedCrystals(8),
+      otherCrystal: getSavedCrystals(9),
     },
   });
 
@@ -120,7 +125,9 @@ export default function Page() {
       .map((value) => Number(value) || 0);
     const _expectedValue =
       calculateExpectedValue(crystalValues) + (Number(data.otherCrystal) || 0);
+
     setExpectedValue(_expectedValue);
+    localStorage.setItem('crystals', JSON.stringify(Object.values(data))); // 로컬에 저장
   };
 
   return (
