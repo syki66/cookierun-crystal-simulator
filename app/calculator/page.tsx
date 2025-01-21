@@ -82,7 +82,7 @@ const FormSchema = z.object({
 });
 
 const getSavedCrystals = (index: number) => {
-  const crystals = localStorage.getItem('crystals');
+  const crystals = window.localStorage.getItem('crystals');
   return crystals ? String(JSON.parse(crystals)[index]) : '';
 };
 
@@ -127,7 +127,10 @@ export default function Page() {
       calculateExpectedValue(crystalValues) + (Number(data.otherCrystal) || 0);
 
     setExpectedValue(_expectedValue);
-    localStorage.setItem('crystals', JSON.stringify(Object.values(data))); // 로컬에 저장
+    window.localStorage.setItem(
+      'crystals',
+      JSON.stringify(Object.values(data))
+    ); // 로컬에 저장
   };
 
   return (
