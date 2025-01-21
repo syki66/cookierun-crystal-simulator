@@ -222,7 +222,8 @@ export default function Page() {
                           setIsCalendarOpen(false); // 날짜 선택 시 팝업 닫기
                         }}
                         disabled={(date) =>
-                          date > new Date() || date < new Date('1900-01-01')
+                          date > new Date('2099-12-31') ||
+                          date < new Date('1900-01-01')
                         }
                         initialFocus
                       />
