@@ -81,29 +81,31 @@ const FormSchema = z.object({
     .optional(),
 });
 
-const getSavedCrystals = (index: number) => {
-  const crystals = window.localStorage.getItem('crystals');
-  return crystals ? String(JSON.parse(crystals)[index]) : '';
-};
-
 export type CalculatorFormSchema = z.infer<typeof FormSchema>;
 
 export default function Page() {
   const [expectedValue, setExpectedValue] = useState<number>(0);
+  const [savedCrystals] = useState<string[]>(() => {
+    if (typeof window !== 'undefined') {
+      const storedCrystals = window.localStorage.getItem('crystals');
+      return storedCrystals ? JSON.parse(storedCrystals) : Array(10).fill('');
+    }
+    return Array(10).fill('');
+  });
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      crystal_0: getSavedCrystals(0),
-      crystal_1: getSavedCrystals(1),
-      crystal_2: getSavedCrystals(2),
-      crystal_3: getSavedCrystals(3),
-      crystal_4: getSavedCrystals(4),
-      crystal_5: getSavedCrystals(5),
-      crystal_6: getSavedCrystals(6),
-      crystal_7: getSavedCrystals(7),
-      crystal_8: getSavedCrystals(8),
-      otherCrystal: getSavedCrystals(9),
+      crystal_0: savedCrystals[0],
+      crystal_1: savedCrystals[1],
+      crystal_2: savedCrystals[2],
+      crystal_3: savedCrystals[3],
+      crystal_4: savedCrystals[4],
+      crystal_5: savedCrystals[5],
+      crystal_6: savedCrystals[6],
+      crystal_7: savedCrystals[7],
+      crystal_8: savedCrystals[8],
+      otherCrystal: savedCrystals[9],
     },
   });
 
