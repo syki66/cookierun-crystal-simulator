@@ -35,8 +35,9 @@ export default function Layout({ children }: LayoutProps) {
 
       <div className="w-full md:w-96 mx-auto mt-5">
         <Note>
-          * 보물은 +9강으로 가정하고 계산됩니다. <br />* 빈 값일 경우 계산에서
+          * 보물은 +9강으로 가정하여 계산됩니다. <br />* 빈 값은 계산에서
           제외됩니다.
+          <br />* 계산이 완료되면 입력값은 웹 브라우저에 자동으로 저장됩니다.
         </Note>
       </div>
 
