@@ -2,7 +2,7 @@ export const lootboxDataAGrade = [
   { grade: 'A', name: '빠른 발바닥 막대사탕', weight: 2.01, expectedValue: 0 },
   { grade: 'A', name: '녹아버린 회중시계', weight: 2.01, expectedValue: 0 },
   { grade: 'A', name: '미디엄레어 미트파이', weight: 2.01, expectedValue: 0 },
-  { grade: 'A', name: '찍어먹는 초코스틱', weight: 1.68, expectedValue: 0 },
+  { grade: 'A', name: '찍어먹는 초코스틱', weight: 1.67, expectedValue: 0 },
   { grade: 'A', name: '탁상용 별빛 전등', weight: 2.01, expectedValue: 0 },
   {
     grade: 'A',
@@ -62,13 +62,16 @@ export const lootboxDataAGrade = [
 ];
 
 export const lootboxDataSGrade = [
+  { grade: 'S', name: '쫄깃바삭 갓 구운 난', weight: 0.5, expectedValue: 0 },
+  { grade: 'S', name: '시원달콤 망고 라씨', weight: 0.5, expectedValue: 0 },
+  { grade: 'S', name: '달콤상큼 탄산 드링크', weight: 0.5, expectedValue: 0 },
   {
     grade: 'S',
     name: '연기의 비법이 담긴 마법책',
     weight: 0.42,
     expectedValue: 0,
   },
-  { grade: 'S', name: '500년 묵은 인삼', weight: 0.5, expectedValue: 0 },
+  { grade: 'S', name: '500년 묵은 인삼', weight: 0.4, expectedValue: 0 },
   {
     grade: 'S',
     name: '레어 크리스탈 사파이어',
@@ -90,7 +93,7 @@ export const lootboxDataSGrade = [
     expectedValue: 0,
   },
   { grade: 'S', name: '1000년 묵은 홍삼', weight: 0.42, expectedValue: 0 },
-  { grade: 'S', name: '보물 상인의 미니 금고', weight: 0.63, expectedValue: 0 },
+  { grade: 'S', name: '보물 상인의 미니 금고', weight: 0.53, expectedValue: 0 },
   {
     grade: 'S',
     name: '뷰티풀 샤이닝 립스틱 3호 캔디핑크',
@@ -110,7 +113,7 @@ export const lootboxDataSGrade = [
     weight: 0.34,
     expectedValue: 0,
   },
-  { grade: 'S', name: '돌로 만든 핫도그', weight: 0.59, expectedValue: 0 },
+  { grade: 'S', name: '돌로 만든 핫도그', weight: 0.41, expectedValue: 0 },
   { grade: 'S', name: '꽁꽁얼린 아이스비스킷', weight: 0.67, expectedValue: 0 },
   {
     grade: 'S',
@@ -141,7 +144,7 @@ export const lootboxDataSGrade = [
   {
     grade: 'S',
     name: '힘이 솟는 오색 무지개떡',
-    weight: 0.59,
+    weight: 0.49,
     expectedValue: 0,
   },
   {
@@ -200,7 +203,7 @@ export const lootboxDataSGrade = [
   {
     grade: 'S',
     name: '간편하고 든든한 삼각 주먹밥',
-    weight: 0.61,
+    weight: 0.51,
     expectedValue: 0,
   },
   {
@@ -220,7 +223,7 @@ export const lootboxDataSGrade = [
   {
     grade: 'S',
     name: '초컬릿 에너지 저장 인형',
-    weight: 0.53,
+    weight: 0.43,
     expectedValue: 0,
   },
   { grade: 'S', name: '자력차단 젤로 헬멧', weight: 0.34, expectedValue: 0 },
@@ -280,24 +283,24 @@ export const lootboxDataSGrade = [
     expectedValue: 1.08,
   },
   { grade: 'S', name: '불타는 빨간 젤리코', weight: 0.65, expectedValue: 0 },
-  { grade: 'S', name: '달콤 밤하늘 크레페', weight: 0.69, expectedValue: 0 },
+  { grade: 'S', name: '달콤 밤하늘 파르페', weight: 0.69, expectedValue: 0 },
   { grade: 'S', name: '초승달빛 무드 칵테일', weight: 0.62, expectedValue: 0 },
   { grade: 'S', name: '빙산의 일각 아이스바', weight: 0.7, expectedValue: 0 },
   { grade: 'S', name: '대지의 번영 팔찌', weight: 0.67, expectedValue: 0 },
-  { grade: 'S', name: '불의 수호 반지', weight: 0.67, expectedValue: 0 },
+  { grade: 'S', name: '화염의 수호 반지', weight: 0.67, expectedValue: 0 },
   { grade: 'S', name: '바람의 질주 귀걸이', weight: 0.67, expectedValue: 0 },
   { grade: 'S', name: '물의 회복 펜던트', weight: 0.68, expectedValue: 0 },
-  { grade: 'S', name: '짜릿한 AAA 건전지 바톤', weight: 0.7, expectedValue: 0 },
+  { grade: 'S', name: '짜릿한 AAA 건전지 바톤', weight: 0.5, expectedValue: 0 },
   {
     grade: 'S',
-    name: '풍미가득 버터 크로와상',
+    name: '풍미폭발 초코 크로와상',
     weight: 0.54,
     expectedValue: 0,
   },
   {
     grade: 'S',
     name: '알록달록 미니 버블껌 미사일',
-    weight: 0.61,
+    weight: 0.5,
     expectedValue: 0,
   },
   {
@@ -306,13 +309,13 @@ export const lootboxDataSGrade = [
     weight: 0.59,
     expectedValue: 0,
   },
-  { grade: 'S', name: '초보용 모래주머니 5g', weight: 0.7, expectedValue: 0 },
-  { grade: 'S', name: '초급자용 베이킹파우더', weight: 0.67, expectedValue: 0 },
-  { grade: 'S', name: '젤리퐁퐁 스카이콩콩', weight: 0.63, expectedValue: 0 },
+  { grade: 'S', name: '초보용 모래주머니 5g', weight: 0.5, expectedValue: 0 },
+  { grade: 'S', name: '초급자용 베이킹파우더', weight: 0.56, expectedValue: 0 },
+  { grade: 'S', name: '젤리퐁퐁 스카이콩콩', weight: 0.53, expectedValue: 0 },
   {
     grade: 'S',
     name: '사르르 분홍벚꽃 솜사탕',
-    weight: 0.65,
+    weight: 0.53,
     expectedValue: 0,
   },
   {
