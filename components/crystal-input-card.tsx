@@ -70,7 +70,7 @@ const CrystalInputCard: React.FC<CrystalCardProps> = ({
               render={({ field }) => (
                 <FormItem className="mb-10">
                   <FormLabel className={`${colorScheme.text} text-xs`}>
-                    기댓값:{' '}
+                    {name.startsWith('crystal_') ? '기댓값' : '개수'}:{' '}
                     {getExpectedValueByName(item.name) === 0
                       ? 1
                       : getExpectedValueByName(item.name)}
