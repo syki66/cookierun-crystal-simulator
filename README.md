@@ -19,6 +19,7 @@
 ## Built With
 
 - Next.js (App Router)
+- React
 - Typescript
 - Tailwind CSS
 - shadcn/ui
