@@ -5,7 +5,7 @@ import NavItem from './nav-item';
 const Header = () => {
   return (
     <header className="bg-gradient-to-r from-sky-500 via-purple-500 to-pink-500 p-3 shadow-lg">
-      <div className="container mx-auto flex flex-col items-center gap-3 lg:flex-row lg:justify-between">
+      <div className="container mx-auto flex flex-col items-center gap-3 lg:flex-row lg:justify-center lg:gap-24 xl:gap-32">
         <Link
           href="/simulator/ready"
           className="flex items-center gap-2 text-white"
@@ -19,7 +19,7 @@ const Header = () => {
             className="size-12"
           />
           <div>
-            <div className="text-lg font-black leading-none sm:text-xl">
+            <div className="font-black leading-none">
               쿠키런 크리스탈 시뮬레이터
             </div>
             <div className="mt-1 text-xs text-white/80">Pokugi Studio</div>
