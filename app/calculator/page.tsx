@@ -23,6 +23,7 @@ const colorSchemes = [
   { bg: 'bg-teal-100', border: 'border-teal-300', text: 'text-teal-800' },
   { bg: 'bg-orange-100', border: 'border-orange-300', text: 'text-orange-800' },
   { bg: 'bg-cyan-100', border: 'border-cyan-300', text: 'text-cyan-800' },
+  { bg: 'bg-lime-100', border: 'border-lime-300', text: 'text-lime-800' },
 ];
 
 const FormSchema = z.object({
@@ -71,6 +72,11 @@ const FormSchema = z.object({
     .max(4, '최대 4자까지 입력 가능합니다.')
     .regex(/^\d*$/, '자연수를 숫자만 입력해주세요.')
     .optional(),
+  crystal_9: z
+    .string()
+    .max(4, '최대 4자까지 입력 가능합니다.')
+    .regex(/^\d*$/, '자연수를 숫자만 입력해주세요.')
+    .optional(),
   otherCrystal: z
     .string()
     .max(6, '최대 6자까지 입력 가능합니다.')
@@ -88,9 +94,9 @@ export default function Page() {
   const [savedCrystals] = useState<string[]>(() => {
     if (typeof window !== 'undefined') {
       const storedCrystals = window.localStorage.getItem('crystals');
-      return storedCrystals ? JSON.parse(storedCrystals) : Array(10).fill('');
+      return storedCrystals ? JSON.parse(storedCrystals) : Array(11).fill('');
     }
-    return Array(10).fill('');
+    return Array(11).fill('');
   });
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -105,7 +111,8 @@ export default function Page() {
       crystal_6: savedCrystals[6],
       crystal_7: savedCrystals[7],
       crystal_8: savedCrystals[8],
-      otherCrystal: savedCrystals[9],
+      crystal_9: savedCrystals[9],
+      otherCrystal: savedCrystals[10],
     },
   });
 
@@ -152,7 +159,7 @@ export default function Page() {
                 />
               ))}
               <CrystalInputCard
-                colorScheme={colorSchemes[9]}
+                colorScheme={colorSchemes[10]}
                 form={form}
                 name="otherCrystal"
                 placeholder="기댓값 입력"

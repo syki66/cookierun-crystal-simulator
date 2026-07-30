@@ -21,7 +21,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
-import { CalendarIcon, Loader2 } from 'lucide-react';
+import { CalendarIcon, Gem, Loader2 } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
 import { Card, CardHeader } from '@/components/ui/card';
@@ -38,6 +38,8 @@ import Image from 'next/image';
 import { crystalItemsData } from '@/data/lootboxData';
 import { getExpectedValueByName } from '@/lib/gacha';
 
+const crystalItemCount = crystalItemsData.length;
+
 const FormSchema = z.object({
   date: z.date({
     required_error: '시작 날짜를 필수로 입력해야 합니다.',
@@ -45,17 +47,18 @@ const FormSchema = z.object({
   crystals: z
     .string({
       required_error: '기댓값을 필수로 입력해야 합니다.',
-      invalid_type_error: '쉼표를 통해 9개의 숫자를 입력해야 합니다.',
+      invalid_type_error: `쉼표를 통해 ${crystalItemCount}개의 숫자를 입력해야 합니다.`,
     })
     .refine(
       (value) => {
         const parts = value.split(',');
         return (
-          parts.length === 9 && parts.every((part) => /^\d+$/.test(part.trim()))
+          parts.length === crystalItemCount &&
+          parts.every((part) => /^\d+$/.test(part.trim()))
         );
       },
       {
-        message: '쉼표가 8개 있고 그 사이에 자연수가 위치해야 합니다.',
+        message: `쉼표가 ${crystalItemCount - 1}개 있고 그 사이에 자연수가 위치해야 합니다.`,
       }
     ),
   defaultCrystal: z
@@ -111,7 +114,7 @@ export default function Page() {
     defaultValues: {
       date: new Date(),
       currentCrystals: 1000,
-      crystals: '0,0,0,0,0,0,0,0,0',
+      crystals: Array(crystalItemCount).fill(0).join(','),
       defaultCrystal: '30',
       threshold: '1',
       skip: 10,
@@ -144,7 +147,7 @@ export default function Page() {
 
       // 데이터 형식이 맞다면 통과 아니라면 - 문자 송출
       if (
-        parts.length !== 9 ||
+        parts.length !== crystalItemCount ||
         !parts.every((part) => /^\d+$/.test(part.trim()))
       ) {
         throw new Error('-');
@@ -260,15 +263,23 @@ export default function Page() {
                     순서대로 입력해주세요.
                   </FormDescription>
                   <FormDescription className="flex gap-1">
-                    {crystalItemsData.map((item) => (
-                      <Image
-                        key={item.name}
-                        src={item.imageUrl}
-                        alt={item.name}
-                        width={28}
-                        height={28}
-                      />
-                    ))}
+                    {crystalItemsData.map((item) =>
+                      item.imageUrl ? (
+                        <Image
+                          key={item.name}
+                          src={item.imageUrl}
+                          alt={item.name}
+                          width={28}
+                          height={28}
+                        />
+                      ) : (
+                        <Gem
+                          key={item.name}
+                          aria-label={item.name}
+                          className="size-7 rounded bg-sky-300 p-1 text-blue-500"
+                        />
+                      )
+                    )}
                   </FormDescription>
                   <FormDescription>
                     [
@@ -293,6 +304,10 @@ export default function Page() {
                     ,{' '}
                     <span className="text-cyan-600">
                       마음에 품은 신성한 크리스탈 검
+                    </span>
+                    ,{' '}
+                    <span className="text-blue-700">
+                      반짝이는 기억의 크리스탈 카메라
                     </span>
                     , <span className="text-sky-600">진주 크리스탈 귀걸이</span>
                     ]

@@ -192,7 +192,7 @@ export const initInventoryData = (
 ) => {
   const initialInventory = crystalItemsData.map((item, index) => ({
     name: item.name,
-    count: crystals[index],
+    count: crystals[index] ?? 0,
     expectedValue: getExpectedValueByName(item.name),
   }));
 

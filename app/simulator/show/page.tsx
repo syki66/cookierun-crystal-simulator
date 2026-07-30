@@ -12,7 +12,7 @@ export default function Page({ searchParams }: PageProps) {
     skip = 10,
     speed = 8,
     threshold = 1,
-    crystals = '0,0,0,0,0,0,0,0,0',
+    crystals = '0,0,0,0,0,0,0,0,0,0',
     defaultCrystal = 30,
     currentCrystals = 1000,
   } = searchParams; // url 파라미터가 존재하면 그대로 쓰고, 없다면 기본값 대입

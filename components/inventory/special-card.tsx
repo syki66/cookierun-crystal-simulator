@@ -6,6 +6,7 @@ import {
 } from '@/components/ui/card';
 import { crystalItemsData } from '@/data/lootboxData';
 import Image from 'next/image';
+import { Gem } from 'lucide-react';
 
 interface SpecialCardProps {
   name: string;
@@ -18,6 +19,8 @@ const SpecialCard: React.FC<SpecialCardProps> = ({
   expectedValue,
   count,
 }) => {
+  const imageUrl = crystalItemsData.find((item) => item.name === name)?.imageUrl;
+
   return (
     <>
       <Card className="w-40 h-40 sm:w-48 sm:h-48 overflow-hidden rounded-xl shadow-xl transform transition-all hover:scale-105 hover:shadow-2xl">
@@ -30,15 +33,17 @@ const SpecialCard: React.FC<SpecialCardProps> = ({
           {
             <CardDescription className="text-center text-xs text-white flex">
               <div className="mr-2">
-                {crystalItemsData.some((item) => item.name === name) && (
+                {imageUrl ? (
                   <Image
-                    src={
-                      crystalItemsData.find((item) => item.name === name)
-                        ?.imageUrl || ''
-                    }
+                    src={imageUrl}
                     alt={name}
                     width={30}
                     height={30}
+                  />
+                ) : (
+                  <Gem
+                    aria-label={name}
+                    className="size-[30px] rounded bg-sky-300 p-1 text-blue-500"
                   />
                 )}
               </div>
