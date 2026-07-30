@@ -21,7 +21,7 @@ const Header = () => {
             </NavItem>
           </li>
           <li>
-            <NavItem href="https://redeposit.syki66.com" color="">
+            <NavItem href="https://deposit.pokugi.com/" color="">
               다른 제품 구경가기
             </NavItem>
           </li>

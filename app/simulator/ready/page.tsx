@@ -33,7 +33,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { crystalItemsData } from '@/data/lootboxData';
 import { getExpectedValueByName } from '@/lib/gacha';
@@ -45,22 +45,13 @@ const FormSchema = z.object({
     required_error: '시작 날짜를 필수로 입력해야 합니다.',
   }),
   crystals: z
-    .string({
-      required_error: '기댓값을 필수로 입력해야 합니다.',
-      invalid_type_error: `쉼표를 통해 ${crystalItemCount}개의 숫자를 입력해야 합니다.`,
-    })
-    .refine(
-      (value) => {
-        const parts = value.split(',');
-        return (
-          parts.length === crystalItemCount &&
-          parts.every((part) => /^\d+$/.test(part.trim()))
-        );
-      },
-      {
-        message: `쉼표가 ${crystalItemCount - 1}개 있고 그 사이에 자연수가 위치해야 합니다.`,
-      }
-    ),
+    .array(
+      z
+        .string()
+        .max(4, '최대 4자리까지 입력할 수 있습니다.')
+        .regex(/^\d*$/, '숫자만 입력해주세요.')
+    )
+    .length(crystalItemCount),
   defaultCrystal: z
     .string({
       required_error: '크리스탈의 개수를 필수로 입력해야 합니다.',
@@ -105,16 +96,14 @@ export default function Page() {
 
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isPending, setIsPending] = useState(false);
-  const [crystalExpValue, setCrystalExpValue] = useState<
-    number | string | null
-  >(null);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    mode: 'onChange',
     defaultValues: {
       date: new Date(),
       currentCrystals: 1000,
-      crystals: Array(crystalItemCount).fill(0).join(','),
+      crystals: Array(crystalItemCount).fill(''),
       defaultCrystal: '30',
       threshold: '1',
       skip: 10,
@@ -123,6 +112,24 @@ export default function Page() {
   });
 
   const crystalsValue = form.watch('crystals');
+  const crystalExpValue = (() => {
+    if (
+      crystalsValue.length !== crystalItemCount ||
+      !crystalsValue.every((value) => /^\d*$/.test(value))
+    ) {
+      return '-';
+    }
+
+    const totalExpectedValue = crystalItemsData.reduce(
+      (total, item, index) =>
+        total +
+        (Number(crystalsValue[index]) || 0) *
+          getExpectedValueByName(item.name),
+      0
+    );
+
+    return Number(totalExpectedValue.toFixed(2));
+  })();
 
   const onSubmit = (data: z.infer<typeof FormSchema>) => {
     const {
@@ -134,47 +141,12 @@ export default function Page() {
       speed,
       threshold,
     } = data;
-    const crystalsArray = crystals.split(',').map((e) => e.trim()); // 공백 제거
+    const crystalsArray = crystals.map((value) => value || '0');
     setIsPending(true);
     router.push(
-      `/simulator/show?timestamp=${date.getTime()}&crystals=${crystalsArray}&defaultCrystal=${defaultCrystal}&currentCrystals=${currentCrystals}&skip=${skip}&speed=${speed}&threshold=${threshold}`
+      `/simulator/show?timestamp=${date.getTime()}&crystals=${crystalsArray.join(',')}&defaultCrystal=${defaultCrystal}&currentCrystals=${currentCrystals}&skip=${skip}&speed=${speed}&threshold=${threshold}`
     );
   };
-
-  const calculateCrystalExp = () => {
-    try {
-      const parts = crystalsValue.split(',');
-
-      // 데이터 형식이 맞다면 통과 아니라면 - 문자 송출
-      if (
-        parts.length !== crystalItemCount ||
-        !parts.every((part) => /^\d+$/.test(part.trim()))
-      ) {
-        throw new Error('-');
-      }
-
-      // 총 기댓값 계산
-      let totalExpectedVal = 0;
-      const crystalArray = parts.map(Number);
-      crystalItemsData.forEach((item, index) => {
-        const expVal = getExpectedValueByName(item.name); // 보물의 기댓값
-        const count = crystalArray[index]; // 개수
-        totalExpectedVal += count * expVal;
-      });
-
-      setCrystalExpValue(Number(totalExpectedVal.toFixed(2)));
-    } catch (error) {
-      if (error instanceof Error) {
-        setCrystalExpValue(error.message);
-      } else {
-        setCrystalExpValue(String(error));
-      }
-    }
-  };
-
-  useEffect(() => {
-    calculateCrystalExp(); // 실시간으로 보물 총 기댓값 계산
-  }, [crystalsValue]);
 
   // 말 다듬고 커밋하기
   return (
@@ -240,82 +212,59 @@ export default function Page() {
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="crystals"
-              render={({ field }) => (
-                <FormItem className="mb-10">
-                  <FormLabel>
-                    크리스탈 보물들의 개수
-                    <span className="text-red-500">*</span>{' '}
-                    <span className="text-sm text-muted-foreground">
-                      ({crystalExpValue})
-                    </span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="각각의 개수를 쉼표를 사이에 두고 입력해주세요."
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    현재 보유하고 있는 크리스탈 보물 개수를 쉼표를 사이에 두고
-                    순서대로 입력해주세요.
-                  </FormDescription>
-                  <FormDescription className="flex gap-1">
-                    {crystalItemsData.map((item) =>
-                      item.imageUrl ? (
-                        <Image
-                          key={item.name}
-                          src={item.imageUrl}
-                          alt={item.name}
-                          width={28}
-                          height={28}
-                        />
-                      ) : (
-                        <Gem
-                          key={item.name}
-                          aria-label={item.name}
-                          className="size-7 rounded bg-sky-300 p-1 text-blue-500"
-                        />
-                      )
+            <div className="mb-10">
+              <div className="mb-1 text-sm font-medium">
+                크리스탈 보물들의 개수
+                <span className="text-red-500">*</span>{' '}
+                <span className="text-muted-foreground">
+                  ({crystalExpValue})
+                </span>
+              </div>
+              <p className="mb-4 text-sm text-muted-foreground">
+                현재 보유하고 있는 각 크리스탈 보물의 개수를 입력해주세요.
+              </p>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+                {crystalItemsData.map((item, index) => (
+                  <FormField
+                    key={item.name}
+                    control={form.control}
+                    name={`crystals.${index}` as const}
+                    render={({ field }) => (
+                      <FormItem>
+                        <Card className="flex h-full flex-col items-center gap-3 border-blue-100 bg-blue-50/50 p-3 text-center">
+                          {item.imageUrl ? (
+                            <Image
+                              src={item.imageUrl}
+                              alt={item.name}
+                              width={64}
+                              height={64}
+                              className="size-16"
+                            />
+                          ) : (
+                            <Gem
+                              aria-label={item.name}
+                              className="size-16 rounded-xl bg-sky-200 p-3 text-blue-500"
+                            />
+                          )}
+                          <FormLabel className="flex min-h-8 items-center text-center text-xs leading-4">
+                            {item.name}
+                          </FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              inputMode="numeric"
+                              placeholder="0"
+                              className="h-9 text-center"
+                            />
+                          </FormControl>
+                          <FormMessage className="text-xs" />
+                        </Card>
+                      </FormItem>
                     )}
-                  </FormDescription>
-                  <FormDescription>
-                    [
-                    <span className="text-blue-400">
-                      레어 크리스탈 사파이어
-                    </span>
-                    ,{' '}
-                    <span className="text-cyan-400">희귀한 크리스탈 조개</span>,{' '}
-                    <span className="text-sky-400">커다란 크리스탈 원석</span>,{' '}
-                    <span className="text-blue-500">
-                      최고급 크리스탈 보석함
-                    </span>
-                    ,{' '}
-                    <span className="text-cyan-500">
-                      청명한 크리스탈 자명종
-                    </span>
-                    , <span className="text-sky-500">왕 크리스탈 보석반지</span>
-                    ,{' '}
-                    <span className="text-blue-600">
-                      장식용 크리스탈 포크스푼
-                    </span>
-                    ,{' '}
-                    <span className="text-cyan-600">
-                      마음에 품은 신성한 크리스탈 검
-                    </span>
-                    ,{' '}
-                    <span className="text-blue-700">
-                      반짝이는 기억의 크리스탈 카메라
-                    </span>
-                    , <span className="text-sky-600">진주 크리스탈 귀걸이</span>
-                    ]
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                  />
+                ))}
+              </div>
+            </div>
 
             <FormField
               control={form.control}
