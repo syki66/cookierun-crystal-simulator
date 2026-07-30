@@ -153,7 +153,7 @@ export default function Page() {
     <div className="max-w-screen-md mx-auto">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <Card className="p-10">
+          <Card className="p-3 sm:p-10">
             <CardHeader className="text-center text-2xl font-semibold pt-0">
               시뮬레이션 정보 입력
             </CardHeader>
@@ -223,30 +223,30 @@ export default function Page() {
               <p className="mb-4 text-sm text-muted-foreground">
                 현재 보유하고 있는 각 크리스탈 보물의 개수를 입력해주세요.
               </p>
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
+              <div className="grid grid-cols-5 gap-1 sm:gap-3">
                 {crystalItemsData.map((item, index) => (
                   <FormField
                     key={item.name}
                     control={form.control}
                     name={`crystals.${index}` as const}
                     render={({ field }) => (
-                      <FormItem>
-                        <Card className="flex h-full flex-col items-center gap-3 border-blue-100 bg-blue-50/50 p-3 text-center">
+                      <FormItem className="min-w-0">
+                        <Card className="flex h-full min-w-0 flex-col items-center gap-0.5 rounded-md border-blue-100 bg-blue-50/50 p-0.5 text-center sm:gap-3 sm:rounded-xl sm:p-3">
                           {item.imageUrl ? (
                             <Image
                               src={item.imageUrl}
                               alt={item.name}
                               width={64}
                               height={64}
-                              className="size-16"
+                              className="size-12 sm:size-16"
                             />
                           ) : (
                             <Gem
                               aria-label={item.name}
-                              className="size-16 rounded-xl bg-sky-200 p-3 text-blue-500"
+                              className="size-12 rounded-md bg-sky-200 p-1.5 text-blue-500 sm:size-16 sm:rounded-xl sm:p-3"
                             />
                           )}
-                          <FormLabel className="flex min-h-8 items-center text-center text-xs leading-4">
+                          <FormLabel className="flex min-h-8 items-center break-keep text-center text-[8px] leading-[10px] sm:text-xs sm:leading-4">
                             {item.name}
                           </FormLabel>
                           <FormControl>
@@ -254,10 +254,10 @@ export default function Page() {
                               {...field}
                               inputMode="numeric"
                               placeholder="0"
-                              className="h-9 text-center"
+                              className="h-6 rounded-sm px-0 py-0 text-center sm:h-9 sm:rounded-md sm:px-3 sm:py-1"
                             />
                           </FormControl>
-                          <FormMessage className="text-xs" />
+                          <FormMessage className="text-[7px] leading-2 sm:text-xs sm:leading-normal" />
                         </Card>
                       </FormItem>
                     )}
