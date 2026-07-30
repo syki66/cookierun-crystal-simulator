@@ -7,6 +7,7 @@ import {
 import { crystalItemsData } from '@/data/lootboxData';
 import Image from 'next/image';
 import { Gem } from 'lucide-react';
+import { getGradeByName } from '@/lib/gacha';
 
 interface SpecialCardProps {
   name: string;
@@ -20,11 +21,35 @@ const SpecialCard: React.FC<SpecialCardProps> = ({
   count,
 }) => {
   const imageUrl = crystalItemsData.find((item) => item.name === name)?.imageUrl;
+  const grade = getGradeByName(name);
+  const isSGrade = grade === 'S';
+  const isAGrade = grade === 'A';
 
   return (
     <>
-      <Card className="w-40 h-40 sm:w-48 sm:h-48 overflow-hidden rounded-xl shadow-xl transform transition-all hover:scale-105 hover:shadow-2xl">
-        <div className="absolute inset-0 bg-gradient-to-br from-red-400 via-yellow-400 to-purple-400 opacity-75 animate-gradient"></div>
+      <Card
+        className={`relative w-40 h-40 sm:w-48 sm:h-48 overflow-hidden rounded-xl border-2 shadow-xl transform transition-all hover:scale-105 hover:shadow-2xl ${
+          isSGrade
+            ? 'border-amber-300'
+            : isAGrade
+              ? 'border-blue-300'
+              : 'border-slate-300'
+        }`}
+      >
+        <div
+          className={`absolute inset-0 bg-gradient-to-br opacity-75 animate-gradient ${
+            isSGrade
+              ? 'from-red-400 via-yellow-400 to-purple-400'
+              : isAGrade
+                ? 'from-sky-400 via-blue-500 to-indigo-500'
+                : 'from-slate-400 via-slate-500 to-slate-600'
+          }`}
+        ></div>
+        {grade && (
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center text-9xl font-black text-white/20">
+            {grade}
+          </div>
+        )}
         <CardContent className="relative h-full flex flex-col items-center justify-between text-white p-4 z-10">
           <CardTitle className="sm:text-xl font-bold text-center">
             {name}

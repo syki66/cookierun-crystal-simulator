@@ -127,6 +127,10 @@ export const getExpectedValueByName = (name: string): number => {
   return expectedValue;
 };
 
+export const getGradeByName = (name: string): string | undefined =>
+  [...lootboxDataSGrade, ...lootboxDataAGrade].find((item) => item.name === name)
+    ?.grade;
+
 // 시뮬레이터 로직
 export const simulator = (
   crystals: number,
