@@ -1,6 +1,14 @@
 import Simulator from '@/components/simulator';
 import { getCrystalsPerDay, initInventoryData } from '@/lib/gacha';
 import { initDataParams } from '@/types/params';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 interface PageProps {
   searchParams: initDataParams;

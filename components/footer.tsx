@@ -5,7 +5,14 @@ export default function Footer() {
     <footer className="bg-gray-100 text-gray-600 py-4 mt-40">
       <div className="flex justify-center">
         <span className="text-sm">
-          © {new Date().getFullYear()} syki66. All rights reserved.
+          © {new Date().getFullYear()}{' '}
+          <a
+            href="https://pokugi.com/"
+            className="font-semibold hover:text-purple-500"
+          >
+            Pokugi Studio
+          </a>
+          . All rights reserved.
         </span>
         <span className="flex items-center ml-2">
           <a

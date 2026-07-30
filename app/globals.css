@@ -74,5 +74,12 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 78%), rgb(255 255 255 / 78%)),
+      url('/branding/crystal-pattern.webp');
+    background-attachment: fixed;
+    background-size:
+      auto,
+      512px 512px;
   }
 }

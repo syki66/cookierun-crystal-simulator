@@ -7,6 +7,26 @@ export const metadata: Metadata = {
   title: '쿠키런 보물 뽑기 시뮬레이션',
   description:
     '카카오 쿠키런 모바일 게임에서 최고급 보물상자 1개 또는 6+1개 세트 뽑기를 체험해 볼 수 있는 시뮬레이션 입니다.',
+  alternates: {
+    canonical: '/gacha',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'ko_KR',
+    url: '/gacha',
+    siteName: '쿠키런 크리스탈 시뮬레이터',
+    title: '쿠키런 보물 뽑기 시뮬레이션 | Pokugi Studio',
+    description:
+      '최고급 보물상자 1개와 S등급 3개 이상이 보장되는 6+1 세트 뽑기를 체험합니다.',
+    images: [{ url: '/og.png', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '쿠키런 보물 뽑기 시뮬레이션 | Pokugi Studio',
+    description:
+      '최고급 보물상자 1개와 S등급 3개 이상이 보장되는 6+1 세트 뽑기를 체험합니다.',
+    images: ['/og.png'],
+  },
 };
 
 const KakaoAdfit = dynamic(() => import('@/components/kakao-adfit'), {

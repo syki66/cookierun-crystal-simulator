@@ -7,6 +7,26 @@ export const metadata: Metadata = {
   title: '쿠키런 크리스탈 기댓값 계산기 - 카쿠 크보 기댓값 계산기',
   description:
     '카카오 쿠키런 모바일 게임에서 크리스탈 보유효과 보물 개수를 입력하면 현재 하루당 기댓값이 얼마인지 계산해주는 페이지입니다.',
+  alternates: {
+    canonical: '/calculator',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'ko_KR',
+    url: '/calculator',
+    siteName: '쿠키런 크리스탈 시뮬레이터',
+    title: '쿠키런 크리스탈 기댓값 계산기 | Pokugi Studio',
+    description:
+      '크리스탈 보유효과 보물 개수를 입력해 하루 크리스탈 기댓값을 계산합니다.',
+    images: [{ url: '/og.png', width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '쿠키런 크리스탈 기댓값 계산기 | Pokugi Studio',
+    description:
+      '크리스탈 보유효과 보물 개수를 입력해 하루 크리스탈 기댓값을 계산합니다.',
+    images: ['/og.png'],
+  },
 };
 
 const KakaoAdfit = dynamic(() => import('@/components/kakao-adfit'), {

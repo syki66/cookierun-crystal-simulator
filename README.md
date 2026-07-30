@@ -1,19 +1,19 @@
 # 쿠키런 크리스탈 시뮬레이터
 
-카카오 쿠키런 모바일 게임의 크리스탈 보유효과 보물들을 사용자가 입력하여 미래 크리스탈 기댓값을 실시간으로 예측해서 시각화해주는 시뮬레이션 웹사이트 [(Live Demo)](https://cookierun.syki66.com)
+카카오 쿠키런 모바일 게임의 크리스탈 보유효과 보물들을 사용자가 입력하여 미래 크리스탈 기댓값을 실시간으로 예측해서 시각화해주는 시뮬레이션 웹사이트 [(Live Demo)](https://cookierun.pokugi.com)
 
 ![main](https://github.com/user-attachments/assets/5af6f9fd-0059-4392-906a-4ccc3caa3c42)
 
 ## Screenshots
 
-| 시뮬레이션 정보 입력 화면 (PC) | 시뮬레이션 정보 입력 화면 (Mobile) |
-| :---: | :---: |
-|![image](https://github.com/user-attachments/assets/a1f7ef93-710c-47b0-a553-9d00caed3a6c)|![image](https://github.com/user-attachments/assets/d88f42d6-c35d-4901-9ee4-f30b26671016)|
-| 시뮬레이션 표시 화면 (PC) | 시뮬레이션 표시 화면 (Mobile) |
+|                              시뮬레이션 정보 입력 화면 (PC)                               |                            시뮬레이션 정보 입력 화면 (Mobile)                             |
+| :---------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------: |
+| ![image](https://github.com/user-attachments/assets/a1f7ef93-710c-47b0-a553-9d00caed3a6c) | ![image](https://github.com/user-attachments/assets/d88f42d6-c35d-4901-9ee4-f30b26671016) |
+|                                 시뮬레이션 표시 화면 (PC)                                 |                               시뮬레이션 표시 화면 (Mobile)                               |
 | ![image](https://github.com/user-attachments/assets/28480646-df18-49dc-82e6-c05a3bc46e12) | ![image](https://github.com/user-attachments/assets/c144ad11-19b9-437a-bd91-7eab3354189a) |
-| 기댓값 계산기 (PC) | 기댓값 계산기 (Mobile) |
+|                                    기댓값 계산기 (PC)                                     |                                  기댓값 계산기 (Mobile)                                   |
 | ![image](https://github.com/user-attachments/assets/f7b4ec88-894d-4c2c-b982-c15a7acbdcc1) | ![image](https://github.com/user-attachments/assets/92ac871e-a832-40c2-8900-1e0b647123cb) |
-| 보물 뽑기 페이지 (PC) | 보물 뽑기 페이지 (Mobile) |
+|                                   보물 뽑기 페이지 (PC)                                   |                                 보물 뽑기 페이지 (Mobile)                                 |
 | ![image](https://github.com/user-attachments/assets/5f18ce92-af0e-4c0f-9a5f-e3d4826edebe) | ![image](https://github.com/user-attachments/assets/3dcf7650-b79c-459f-8cca-00240a58914e) |
 
 ## Built With
