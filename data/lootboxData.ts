@@ -475,14 +475,6 @@ export const lootboxDataSGrade = [
   },
 ];
 
-export const multiLootboxData = [
-  { name: 'S등급 보물 3개 + A등급 보물 4개', weight: 0.5013 },
-  { name: 'S등급 보물 4개 + A등급 보물 3개', weight: 0.2731 },
-  { name: 'S등급 보물 5개 + A등급 보물 2개', weight: 0.1635 },
-  { name: 'S등급 보물 6개 + A등급 보물 1개', weight: 0.0544 },
-  { name: 'S등급 보물 7개', weight: 0.0078 },
-];
-
 export const crystalItemsData = [
   { name: '레어 크리스탈 사파이어', imageUrl: '/crystals/1.webp' },
   { name: '희귀한 크리스탈 조개', imageUrl: '/crystals/2.webp' },

@@ -1,6 +1,5 @@
 import { itemProps } from '@/types/item';
 import {
-  multiLootboxData,
   lootboxDataAGrade,
   lootboxDataSGrade,
   crystalItemsData,
@@ -64,67 +63,32 @@ export const singleGachaMachine = (): string[] => {
   return [pickedItem];
 };
 
-// 6+1 보물 뽑기 로직
+// 최고급 보물상자를 7번 뽑되 S등급 보물을 최소 3개 보장
 export const multiGachaMachine = (): string[] => {
-  const pickedMultiLootbox = getPickedItem(
-    multiLootboxData // 최고급 보물 상자 6+1개 세트 뽑기 데이터
-  );
+  const pickedItems = Array(7)
+    .fill(null)
+    .map(() =>
+      getPickedItem([...lootboxDataSGrade, ...lootboxDataAGrade])
+    );
+  const sGradeNames = new Set(lootboxDataSGrade.map((item) => item.name));
+  const sGradeCount = pickedItems.filter((name) =>
+    sGradeNames.has(name)
+  ).length;
+  const guaranteedCount = 3;
 
-  // 6+1세트 구매시 S보물 및 A보물 등장 확률별 분기 처리
-  const _pickedItems: string[] = [];
-  switch (pickedMultiLootbox) {
-    case 'S등급 보물 3개 + A등급 보물 4개':
-      _pickedItems.push(
-        ...Array(3)
-          .fill(null)
-          .map(() => getPickedItem(lootboxDataSGrade)),
-        ...Array(4)
-          .fill(null)
-          .map(() => getPickedItem(lootboxDataAGrade))
-      );
-      break;
-    case 'S등급 보물 4개 + A등급 보물 3개':
-      _pickedItems.push(
-        ...Array(4)
-          .fill(null)
-          .map(() => getPickedItem(lootboxDataSGrade)),
-        ...Array(3)
-          .fill(null)
-          .map(() => getPickedItem(lootboxDataAGrade))
-      );
-      break;
-    case 'S등급 보물 5개 + A등급 보물 2개':
-      _pickedItems.push(
-        ...Array(5)
-          .fill(null)
-          .map(() => getPickedItem(lootboxDataSGrade)),
-        ...Array(2)
-          .fill(null)
-          .map(() => getPickedItem(lootboxDataAGrade))
-      );
-      break;
-    case 'S등급 보물 6개 + A등급 보물 1개':
-      _pickedItems.push(
-        ...Array(6)
-          .fill(null)
-          .map(() => getPickedItem(lootboxDataSGrade)),
-        ...Array(1)
-          .fill(null)
-          .map(() => getPickedItem(lootboxDataAGrade))
-      );
-      break;
-    case 'S등급 보물 7개':
-      _pickedItems.push(
-        ...Array(7)
-          .fill(null)
-          .map(() => getPickedItem(lootboxDataSGrade))
-      );
-      break;
-    default:
-      console.error('알 수 없는 결과:', pickedMultiLootbox); // 예외 발생 시 에러 로그 출력
+  if (sGradeCount < guaranteedCount) {
+    const aGradeIndexes = pickedItems
+      .map((name, index) => (sGradeNames.has(name) ? -1 : index))
+      .filter((index) => index !== -1);
+
+    for (let i = 0; i < guaranteedCount - sGradeCount; i++) {
+      const randomIndex = Math.floor(Math.random() * aGradeIndexes.length);
+      const [pickedIndex] = aGradeIndexes.splice(randomIndex, 1);
+      pickedItems[pickedIndex] = getPickedItem(lootboxDataSGrade);
+    }
   }
 
-  return _pickedItems;
+  return pickedItems;
 };
 
 export const updateInventory = (
