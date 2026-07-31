@@ -8,6 +8,7 @@ import { Form } from '@/components/ui/form';
 import { crystalItemsData } from '@/data/lootboxData';
 import { getExpectedValueByName } from '@/lib/gacha';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Gem, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -101,6 +102,8 @@ export default function Page() {
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     defaultValues: {
       crystal_0: savedCrystals[0],
       crystal_1: savedCrystals[1],
@@ -143,11 +146,23 @@ export default function Page() {
   };
 
   return (
-    <>
-      <div className="max-w-screen-2xl mx-auto">
+    <div className="mx-auto max-w-screen-xl pb-8">
+      <section className="game-panel p-3 sm:p-6">
+        <div className="mb-6 text-center">
+          <span className="game-kicker">
+            <Sparkles className="mr-1 size-3.5" />
+            MY CRYSTALS
+          </span>
+          <h2 className="game-heading mt-4 text-2xl sm:text-3xl">
+            보유한 보물을 입력해 주세요
+          </h2>
+          <p className="mt-2 break-keep text-sm font-medium text-amber-900/60">
+            각 보물의 수량을 입력하면 하루 크리스탈 기댓값을 계산합니다.
+          </p>
+        </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="grid grid-cols-2 gap-4 md:flex md:flex-wrap md:justify-center">
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
               {crystalItemsData.map((item, index) => (
                 <CrystalInputCard
                   key={`${item.name}-${index}`}
@@ -170,27 +185,35 @@ export default function Page() {
             <div className="flex flex-col items-center">
               <Button
                 type="submit"
-                className="w-full md:w-[576px] h-16 mt-20 mb-32 select-none text-white text-4xl bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 hover:from-purple-500 hover:via-pink-600 hover:to-red-600"
+                className="game-action mb-16 mt-10 h-16 w-full max-w-xl select-none text-2xl sm:text-3xl"
               >
                 계산하기
               </Button>
 
-              <Card className="w-full md:w-96 h-64 overflow-hidden">
-                <CardContent className="p-6 h-full flex flex-col items-center justify-center bg-gradient-to-br from-teal-300 via-blue-400 to-cyan-300 text-white">
-                  <div className="text-xl font-semibold text-purple-100 mb-10">
+              <Card className="relative h-64 w-full max-w-md overflow-hidden border-sky-300 bg-gradient-to-br from-sky-100 via-cyan-200 to-blue-300 shadow-[0_7px_0_#0284c7,0_16px_30px_rgb(3_105_161_/_22%)]">
+                <div className="absolute -right-10 -top-10 size-36 rounded-full bg-white/35 blur-sm" />
+                <CardContent className="relative flex h-full flex-col items-center justify-center p-6 text-sky-950">
+                  <Gem className="mb-3 size-11 fill-cyan-300 text-sky-600 drop-shadow-md" />
+                  <div className="mb-6 text-lg font-black">
                     하루 크리스탈 기댓값
                   </div>
-                  <div className="text-6xl font-bold mb-2 animate-pulse">
+                  <div
+                    aria-live="polite"
+                    className="text-5xl font-black tracking-tight [text-shadow:0_3px_0_#fff] sm:text-6xl"
+                  >
                     {expectedValue === 0
                       ? '???'
                       : expectedValue.toLocaleString()}
+                  </div>
+                  <div className="mt-3 rounded-full bg-white/55 px-3 py-1 text-xs font-bold">
+                    CRYSTAL / DAY
                   </div>
                 </CardContent>
               </Card>
             </div>
           </form>
         </Form>
-      </div>
-    </>
+      </section>
+    </div>
   );
 }

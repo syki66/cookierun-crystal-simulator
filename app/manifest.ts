@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       '카카오 쿠키런 모바일 게임의 크리스탈 보유효과 보물들을 사용자가 입력하여 미래 크리스탈 기댓값을 실시간으로 예측해서 시각화해주는 시뮬레이션 웹사이트',
     start_url: '/simulator/ready',
     display: 'standalone',
-    background_color: '#fffaf2',
-    theme_color: '#8b5cf6',
+    background_color: '#fff4d0',
+    theme_color: '#743716',
     icons: [
       {
         src: '/icons/icon-192.png',

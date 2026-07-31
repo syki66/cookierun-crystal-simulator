@@ -15,20 +15,31 @@ export default function DashboardCard({
   subtext,
 }: DashboardCardProps) {
   return (
-    <Card className="overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border-none shadow-lg">
-      <CardContent className="p-4 sm:p-6">
-        <div className="flex items-center justify-between mb-2 sm:mb-4">
-          <h3 className="text-xs sm:text-sm font-medium text-blue-600 dark:text-blue-400">
+    <Card className="group relative h-full overflow-hidden rounded-[1.5rem] border-[3px] border-[#704027] bg-[#fff2d2] text-[#5d341f] shadow-[0_7px_0_#9a6534,0_12px_24px_rgba(97,54,31,0.15)] motion-safe:transition-transform motion-safe:duration-200 hover:-translate-y-1">
+      <div
+        aria-hidden="true"
+        className="absolute -right-7 -top-7 size-24 rotate-12 rounded-[2rem] border-2 border-[#87d9ee]/60 bg-[#c9f5ff]/60"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute bottom-3 left-4 size-2 rounded-full bg-[#d59b5d]/40 shadow-[14px_5px_0_#e4b878,27px_-3px_0_#c8874e]"
+      />
+      <CardContent className="relative z-10 flex h-full flex-col p-4 sm:p-5">
+        <div className="mb-3 flex items-start justify-between gap-2 sm:mb-4">
+          <h3 className="pt-1 text-xs font-black leading-snug text-[#805033] sm:text-sm">
             {title}
           </h3>
-          <div className="p-1 sm:p-2 bg-blue-500/10 rounded-full">
-            <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
+          <div className="flex size-9 shrink-0 rotate-3 items-center justify-center rounded-xl border-2 border-[#287da7] bg-[#c9f4ff] text-[#287da7] shadow-[0_3px_0_#287da7] sm:size-11">
+            <Icon
+              aria-hidden="true"
+              className="size-4 stroke-[2.75] sm:size-5"
+            />
           </div>
         </div>
-        <p className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-100">
+        <p className="mt-auto break-keep text-lg font-black leading-tight tracking-tight text-[#58301d] sm:text-2xl">
           {value}
         </p>
-        <p className="mt-1 text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+        <p className="mt-2 break-keep text-[10px] font-bold leading-snug text-[#946443] sm:text-xs">
           {subtext}
         </p>
       </CardContent>

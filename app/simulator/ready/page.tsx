@@ -150,19 +150,25 @@ export default function Page() {
 
   // 말 다듬고 커밋하기
   return (
-    <div className="max-w-screen-md mx-auto">
+    <div className="mx-auto max-w-screen-md pb-8">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <Card className="p-3 sm:p-10">
-            <CardHeader className="text-center text-2xl font-semibold pt-0">
-              시뮬레이션 정보 입력
+          <Card className="game-panel overflow-hidden p-3 sm:p-8">
+            <CardHeader className="items-center px-2 pb-6 pt-3 text-center sm:px-6">
+              <span className="game-kicker mb-2">SIMULATION SETUP</span>
+              <div className="game-heading text-2xl sm:text-3xl">
+                시뮬레이션 정보 입력
+              </div>
+              <p className="max-w-md break-keep text-sm font-medium leading-6 text-amber-900/60">
+                보유한 보물과 시뮬레이션 조건을 입력해주세요.
+              </p>
             </CardHeader>
 
             <FormField
               control={form.control}
               name="date"
               render={({ field }) => (
-                <FormItem className="flex flex-col mt-5 mb-10">
+                <FormItem className="game-panel-soft mb-5 flex flex-col p-4">
                   <FormLabel>
                     시작 날짜 <span className="text-red-500">*</span>
                   </FormLabel>
@@ -175,7 +181,7 @@ export default function Page() {
                         <Button
                           variant={'outline'}
                           className={cn(
-                            'w-[240px] pl-3 text-left font-normal',
+                            'w-full pl-3 text-left font-bold sm:w-[240px]',
                             !field.value && 'text-muted-foreground'
                           )}
                         >
@@ -212,15 +218,15 @@ export default function Page() {
               )}
             />
 
-            <div className="mb-10">
-              <div className="mb-1 text-sm font-medium">
-                크리스탈 보물들의 개수
+            <div className="game-panel-soft mb-5 p-2.5 sm:p-4">
+              <div className="mb-1 flex flex-wrap items-center gap-2 text-sm font-black text-amber-950">
+                <span>크리스탈 보물들의 개수</span>
                 <span className="text-red-500">*</span>{' '}
-                <span className="text-muted-foreground">
-                  ({crystalExpValue})
+                <span className="rounded-full border border-sky-300 bg-sky-100 px-2 py-0.5 text-xs font-black text-sky-800">
+                  하루 기댓값 {crystalExpValue}
                 </span>
               </div>
-              <p className="mb-4 text-sm text-muted-foreground">
+              <p className="mb-3 text-xs font-medium text-amber-900/60 sm:text-sm">
                 현재 보유하고 있는 각 크리스탈 보물의 개수를 입력해주세요.
               </p>
               <div className="grid grid-cols-5 gap-1 sm:gap-3">
@@ -231,7 +237,7 @@ export default function Page() {
                     name={`crystals.${index}` as const}
                     render={({ field }) => (
                       <FormItem className="min-w-0">
-                        <Card className="flex h-full min-w-0 flex-col items-center gap-0.5 rounded-md border-blue-100 bg-blue-50/50 p-0.5 text-center sm:gap-3 sm:rounded-xl sm:p-3">
+                        <Card className="flex h-full min-w-0 flex-col items-center gap-0.5 rounded-md border-sky-200 bg-gradient-to-b from-white to-sky-50 p-0.5 text-center shadow-[0_3px_0_#38bdf8] transition-transform hover:-translate-y-0.5 sm:gap-2 sm:rounded-xl sm:p-2">
                           {item.imageUrl ? (
                             <Image
                               src={item.imageUrl}
@@ -243,10 +249,10 @@ export default function Page() {
                           ) : (
                             <Gem
                               aria-label={item.name}
-                              className="size-12 rounded-md bg-sky-200 p-1.5 text-blue-500 sm:size-16 sm:rounded-xl sm:p-3"
+                              className="size-12 rounded-md bg-sky-200 p-1.5 text-sky-700 sm:size-16 sm:rounded-xl sm:p-3"
                             />
                           )}
-                          <FormLabel className="flex min-h-8 items-center break-keep text-center text-[8px] leading-[10px] sm:text-xs sm:leading-4">
+                          <FormLabel className="flex min-h-8 items-center break-keep text-center text-[8px] leading-[10px] text-amber-950 sm:text-xs sm:leading-4">
                             {item.name}
                           </FormLabel>
                           <FormControl>
@@ -254,7 +260,7 @@ export default function Page() {
                               {...field}
                               inputMode="numeric"
                               placeholder="0"
-                              className="h-6 rounded-sm px-0 py-0 text-center sm:h-9 sm:rounded-md sm:px-3 sm:py-1"
+                              className="h-7 rounded-md border-sky-200 px-0 py-0 text-center shadow-none focus-visible:border-sky-400 sm:h-9 sm:px-3 sm:py-1"
                             />
                           </FormControl>
                           <FormMessage className="text-[7px] leading-2 sm:text-xs sm:leading-normal" />
@@ -270,7 +276,7 @@ export default function Page() {
               control={form.control}
               name="defaultCrystal"
               render={({ field }) => (
-                <FormItem className="mb-10">
+                <FormItem className="game-panel-soft mb-5 p-4">
                   <FormLabel>
                     기타 크리스탈 보물들의 기댓값
                     <span className="text-red-500">*</span>
@@ -294,7 +300,7 @@ export default function Page() {
               control={form.control}
               name="currentCrystals"
               render={({ field }) => (
-                <FormItem className="mb-10">
+                <FormItem className="game-panel-soft mb-5 p-4">
                   <FormLabel>
                     크리스탈 보유량 <span className="text-red-500">*</span>
                   </FormLabel>
@@ -326,7 +332,7 @@ export default function Page() {
               control={form.control}
               name="threshold"
               render={({ field }) => (
-                <FormItem className="mb-10">
+                <FormItem className="game-panel-soft mb-5 p-4">
                   <FormLabel>
                     보물상자 오픈 트리거가 발동되기 위한 크리스탈 개수
                     <span className="text-red-500">*</span>
@@ -367,7 +373,7 @@ export default function Page() {
               control={form.control}
               name="skip"
               render={({ field }) => (
-                <FormItem className="mb-10">
+                <FormItem className="game-panel-soft mb-5 p-4">
                   <FormLabel>
                     그래프 축약 <span className="text-red-500">*</span>
                   </FormLabel>
@@ -399,7 +405,7 @@ export default function Page() {
               control={form.control}
               name="speed"
               render={({ field }) => (
-                <FormItem className="mb-10">
+                <FormItem className="game-panel-soft mb-1 p-4">
                   <FormLabel>
                     시뮬레이션 배속 <span className="text-red-500">*</span>
                   </FormLabel>
@@ -432,20 +438,13 @@ export default function Page() {
 
           <Button
             type="submit"
-            className="w-full h-16 mt-10 select-none text-white text-4xl bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 hover:from-purple-500 hover:via-pink-600 hover:to-red-600"
+            className="game-action mt-10 h-16 w-full select-none text-xl sm:text-3xl"
             disabled={isPending}
           >
             {isPending ? (
               <>
-                <Loader2 className="w-12 h-12 animate-spin text-blue-300" />
-                <Loader2 className="w-12 h-12 animate-pulse text-red-300" />
-                <Loader2 className="w-12 h-12 animate-ping text-yellow-300" />
-                <Loader2 className="w-12 h-12 animate-bounce text-lime-300" />
-                <span className="text-2xl animate-spin">준비중입니다</span>
-                <Loader2 className="w-12 h-12 animate-ping text-indigo-300" />
-                <Loader2 className="w-12 h-12 animate-spin text-pink-300" />
-                <Loader2 className="w-12 h-12 animate-pulse text-teal-300" />
-                <Loader2 className="w-12 h-12 animate-spin text-amber-300" />
+                <Loader2 className="size-7 animate-spin text-amber-100" />
+                <span>미래로 떠날 준비를 하고 있어요</span>
               </>
             ) : (
               '시뮬레이션 시작하기'

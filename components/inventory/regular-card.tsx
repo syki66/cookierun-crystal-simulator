@@ -14,35 +14,51 @@ interface RegularCardProps {
 const RegularCard: React.FC<RegularCardProps> = ({ name, count }) => {
   const grade = getGradeByName(name);
   const isSGrade = grade === 'S';
+  const isAGrade = grade === 'A';
 
   return (
     <Card
-      className={`relative w-28 h-28 overflow-hidden rounded-lg border-2 shadow-md transform transition-all hover:scale-105 hover:shadow-lg ${
-        isSGrade ? 'border-amber-400' : 'border-blue-400'
+      className={`group relative h-28 w-[calc(33.333%_-_0.5rem)] min-w-[5.25rem] max-w-28 overflow-hidden rounded-[1.35rem] border-[3px] bg-[#fff5db] text-[#5a321f] transition-all duration-200 hover:-translate-y-1 ${
+        isSGrade
+          ? 'border-[#a75031] shadow-[0_6px_0_#a75031,0_10px_18px_rgba(142,66,38,0.2)]'
+          : isAGrade
+            ? 'border-[#2b78a7] shadow-[0_6px_0_#2b78a7,0_10px_18px_rgba(43,120,167,0.18)]'
+            : 'border-[#765039] shadow-[0_6px_0_#765039,0_10px_18px_rgba(83,48,29,0.18)]'
       }`}
     >
       <div
-        className={`absolute inset-0 bg-gradient-to-br opacity-75 ${
+        aria-hidden="true"
+        className={`absolute inset-x-0 top-0 h-12 border-b-2 transition-[height] duration-200 group-hover:h-full ${
           isSGrade
-            ? 'from-amber-100 via-yellow-200 to-orange-300'
-            : 'from-blue-100 via-blue-200 to-blue-300'
+            ? 'border-[#c8654b] bg-gradient-to-br from-[#ffe08a] via-[#ffb76d] to-[#ef7b68]'
+            : isAGrade
+              ? 'border-[#3c91bc] bg-gradient-to-br from-[#c9f5ff] via-[#83dcf4] to-[#5aa9e1]'
+              : 'border-[#916448] bg-gradient-to-br from-[#f5d6a5] via-[#d6aa75] to-[#b27c55]'
         }`}
-      ></div>
+      />
       {grade && (
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center text-7xl font-black text-white/25">
+        <div
+          aria-hidden="true"
+          className={`absolute right-1.5 top-1.5 flex size-7 items-center justify-center rounded-lg border-2 text-base font-black text-white shadow-[0_2px_0_rgba(74,40,25,0.3)] ${
+            isSGrade
+              ? 'border-[#8f442b] bg-[#e05e57]'
+              : isAGrade
+                ? 'border-[#22638f] bg-[#328fc4]'
+                : 'border-[#66432e] bg-[#896249]'
+          }`}
+        >
           {grade}
         </div>
       )}
-      <CardContent className="relative h-full flex flex-col items-center justify-between text-gray-800 p-2 z-10">
-        <CardTitle className="text-sm font-bold text-center mb-auto">
+      <CardContent className="relative z-10 flex h-full flex-col items-center p-2.5">
+        {grade && <span className="sr-only">{grade}등급</span>}
+        <CardTitle className="line-clamp-2 min-h-9 max-w-[calc(100%_-_1.75rem)] self-start text-left text-[11px] font-black leading-tight text-[#57301f] group-hover:line-clamp-none sm:text-xs">
           {name}
         </CardTitle>
-        <p className="text-xl font-bold">{count.toLocaleString()}</p>
-        {
-          <CardDescription className="text-center text-[8px] line-clamp-2">
-            {''}
-          </CardDescription>
-        }
+        <p className="mt-auto w-full rounded-lg border-2 border-[#d29a3d] bg-[#fff9e8] px-1 py-0.5 text-center text-xs font-black tabular-nums tracking-tight text-[#633820] shadow-[0_2px_0_#d29a3d] sm:text-base">
+          {count.toLocaleString()}
+        </p>
+        <CardDescription className="sr-only">{name} 보유 개수</CardDescription>
       </CardContent>
     </Card>
   );

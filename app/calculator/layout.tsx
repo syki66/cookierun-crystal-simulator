@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { ReactNode } from 'react';
 import dynamic from 'next/dynamic';
 import Note from '@/components/note';
+import PageHero from '@/components/page-hero';
 
 export const metadata: Metadata = {
   title: '쿠키런 크리스탈 기댓값 계산기 - 카쿠 크보 기댓값 계산기',
@@ -40,20 +41,22 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <>
-      <h1 className="text-4xl md:text-7xl break-keep font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-center mt-10 mb-10">
-        크리스탈 기댓값 계산기
-      </h1>
+      <PageHero
+        eyebrow="CRYSTAL CALCULATOR"
+        title="크리스탈 기댓값 계산기"
+        description="내가 가진 크리스탈 보유효과 보물을 입력하면 하루 크리스탈 기댓값을 빠르게 계산해 드려요."
+      />
 
-      <div className="hidden md:block">
+      <div className="mb-8 hidden md:block">
         <KakaoAdfit adUnit={'DAN-u57341CMIeyBXond'} adSize={['728', '90']} />
       </div>
-      <div className="block md:hidden">
+      <div className="mb-8 block md:hidden">
         <KakaoAdfit adUnit={'DAN-xmOa3sTTtsSKKgUD'} adSize={['320', '100']} />
       </div>
 
       {children}
 
-      <div className="w-full md:w-96 mx-auto mt-5">
+      <div className="mx-auto mt-12 w-full max-w-md">
         <Note>
           * 보물은 +9강으로 가정하여 계산됩니다. <br />* 빈 값은 계산에서
           제외됩니다.
@@ -61,7 +64,7 @@ export default function Layout({ children }: LayoutProps) {
         </Note>
       </div>
 
-      <div className="mt-10">
+      <div className="mt-8">
         <KakaoAdfit adUnit={'DAN-F0gt5sOnJ8XI8YL6'} adSize={['300', '250']} />
       </div>
     </>

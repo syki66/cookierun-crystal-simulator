@@ -33,20 +33,18 @@ export default function Page({ searchParams }: PageProps) {
   const initCrystalsPerDay = getCrystalsPerDay(initInventory); // 초기 크리스탈 기댓값 생성
 
   return (
-    <>
-      <div className="max-w-screen-2xl mx-auto">
-        <Simulator
-          initData={{
-            timestamp: Number(timestamp),
-            currentCrystals: Number(currentCrystals),
-            crystalsPerDay: initCrystalsPerDay,
-            inventory: initInventory,
-            skip: Number(skip),
-            speed: Number(speed),
-            threshold: Number(threshold),
-          }}
-        />
-      </div>
-    </>
+    <div className="mx-auto max-w-screen-2xl pb-8">
+      <Simulator
+        initData={{
+          timestamp: Number(timestamp),
+          currentCrystals: Number(currentCrystals),
+          crystalsPerDay: initCrystalsPerDay,
+          inventory: initInventory,
+          skip: Number(skip),
+          speed: Number(speed),
+          threshold: Number(threshold),
+        }}
+      />
+    </div>
   );
 }

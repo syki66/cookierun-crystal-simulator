@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { ReactNode } from 'react';
 import dynamic from 'next/dynamic';
 import Note from '@/components/note';
+import PageHero from '@/components/page-hero';
 
 export const metadata: Metadata = {
   title: '쿠키런 보물 뽑기 시뮬레이션',
@@ -40,20 +41,22 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <>
-      <h1 className="text-4xl md:text-7xl break-keep font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-center mt-10 mb-10">
-        최고급 보물상자 뽑기
-      </h1>
+      <PageHero
+        eyebrow="GACHA SIMULATION"
+        title="최고급 보물상자 뽑기"
+        description="실제 인게임과 동일한 확률로 보물 뽑기를 시뮬레이션해 볼 수 있습니다."
+      />
 
-      <div className="hidden md:block">
+      <div className="mb-8 hidden md:block">
         <KakaoAdfit adUnit={'DAN-u57341CMIeyBXond'} adSize={['728', '90']} />
       </div>
-      <div className="block md:hidden">
+      <div className="mb-8 block md:hidden">
         <KakaoAdfit adUnit={'DAN-xmOa3sTTtsSKKgUD'} adSize={['320', '100']} />
       </div>
 
       {children}
 
-      <div className="md:w-[750px] mx-auto mt-20">
+      <div className="mx-auto mt-16 max-w-[750px]">
         <Note>
           * 쿠키런 최고급 보물상자 뽑기 시뮬레이션은{' '}
           <a
@@ -72,7 +75,7 @@ export default function Layout({ children }: LayoutProps) {
         </Note>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-8">
         <KakaoAdfit adUnit={'DAN-F0gt5sOnJ8XI8YL6'} adSize={['300', '250']} />
       </div>
     </>

@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -14,31 +10,31 @@ body {
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    --background: 42 100% 96%;
+    --foreground: 24 53% 20%;
+    --card: 43 100% 98%;
+    --card-foreground: 24 53% 20%;
+    --popover: 43 100% 98%;
+    --popover-foreground: 24 53% 20%;
+    --primary: 350 76% 55%;
+    --primary-foreground: 43 100% 98%;
+    --secondary: 195 88% 55%;
+    --secondary-foreground: 202 75% 18%;
+    --muted: 39 74% 91%;
+    --muted-foreground: 27 28% 42%;
+    --accent: 43 96% 70%;
+    --accent-foreground: 25 63% 25%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem;
+    --border: 35 78% 69%;
+    --input: 35 78% 69%;
+    --ring: 193 91% 48%;
+    --chart-1: 193 91% 48%;
+    --chart-2: 350 76% 55%;
+    --chart-3: 43 96% 56%;
+    --chart-4: 272 70% 62%;
+    --chart-5: 153 62% 43%;
+    --radius: 1rem;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -72,14 +68,90 @@ body {
   * {
     @apply border-border;
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply min-h-screen bg-background text-foreground;
+    font-family:
+      var(--font-geist-sans), ui-rounded, 'Arial Rounded MT Bold',
+      system-ui, sans-serif;
     background-image:
-      linear-gradient(rgb(255 255 255 / 78%), rgb(255 255 255 / 78%)),
+      radial-gradient(circle at 8% 12%, rgb(255 255 255 / 75%) 0 5rem, transparent 5.1rem),
+      radial-gradient(circle at 91% 28%, rgb(125 211 252 / 16%) 0 8rem, transparent 8.1rem),
+      linear-gradient(rgb(255 248 225 / 86%), rgb(255 244 208 / 88%)),
       url('/branding/crystal-pattern.webp');
     background-attachment: fixed;
     background-size:
       auto,
-      512px 512px;
+      auto,
+      auto,
+      420px 420px;
+  }
+
+  ::selection {
+    background: rgb(125 211 252 / 55%);
+    color: #4a2512;
+  }
+}
+
+@layer components {
+  .game-panel {
+    border: 3px solid #fcd34d !important;
+    border-radius: 1.75rem !important;
+    background: rgb(255 250 240 / 95%) !important;
+    box-shadow:
+      0 6px 0 #b96522,
+      0 14px 30px rgb(120 53 15 / 16%) !important;
+  }
+
+  .game-panel-soft {
+    @apply rounded-2xl border-2 border-amber-200 bg-white/70;
+    box-shadow: 0 3px 0 #f5bd4f;
+  }
+
+  .game-title {
+    color: #fff9df;
+    -webkit-text-stroke: 1px #6f3516;
+    text-shadow:
+      0 3px 0 #fbbf24,
+      0 6px 0 #a94f1d,
+      0 10px 22px rgb(69 26 3 / 42%);
+  }
+
+  .game-heading {
+    @apply font-black tracking-tight text-amber-950;
+    text-shadow: 0 3px 0 #fde68a;
+  }
+
+  .game-action {
+    border: 2px solid #fecdd3 !important;
+    border-radius: 1rem !important;
+    background: linear-gradient(#fb7185, #e11d48) !important;
+    color: white !important;
+    font-weight: 900 !important;
+    box-shadow:
+      0 6px 0 #9f1239,
+      0 12px 22px rgb(136 19 55 / 22%) !important;
+    transition:
+      transform 150ms ease,
+      filter 150ms ease !important;
+  }
+
+  .game-action:hover {
+    filter: brightness(1.07);
+    transform: translateY(-2px);
+  }
+
+  .game-action:active {
+    box-shadow: 0 2px 0 #9f1239 !important;
+    transform: translateY(4px);
+  }
+
+  .game-kicker {
+    @apply inline-flex items-center rounded-full border-2 border-amber-300 bg-amber-100 px-3 py-1 text-xs font-black uppercase tracking-[0.12em] text-amber-900;
+    box-shadow: 0 3px 0 #d97706;
   }
 }

@@ -111,16 +111,16 @@ export default function RootLayout({
   };
 
   return (
-    <html lang='ko'>
+    <html lang="ko">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <script
-          type='application/ld+json'
+          type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
         <Header />
-        <div className='mx-3'>{children}</div>
+        <div className="min-h-[70vh] px-3 sm:px-5">{children}</div>
         <Footer />
         <Analytics />
       </body>

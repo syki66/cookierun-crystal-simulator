@@ -2,6 +2,7 @@ import { ReactNode } from 'react';
 import { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import Note from '@/components/note';
+import PageHero from '@/components/page-hero';
 
 export const metadata: Metadata = {
   title: '쿠키런 크리스탈 시뮬레이션',
@@ -23,27 +24,29 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <>
-      <h1 className="text-4xl md:text-7xl break-keep font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-center mt-10 mb-10">
-        쿠키런 크리스탈 기댓값 시뮬레이션
-      </h1>
+      <PageHero
+        eyebrow='CRYSTAL SIMULATION'
+        title='크리스탈 기댓값 시뮬레이션'
+        description='보유 중인 크리스탈 보유효과 보물을 입력하고, 미래 크리스탈 기댓값이 어떻게 달라지는지 실시간으로 확인해 보세요.'
+      />
 
-      <div className="hidden md:block">
+      <div className='mb-8 hidden md:block'>
         <KakaoAdfit adUnit={'DAN-u57341CMIeyBXond'} adSize={['728', '90']} />
       </div>
-      <div className="block md:hidden">
+      <div className='mb-8 block md:hidden'>
         <KakaoAdfit adUnit={'DAN-xmOa3sTTtsSKKgUD'} adSize={['320', '100']} />
       </div>
 
       {children}
 
-      <div className="max-w-screen-md mx-auto mt-10">
+      <div className='mx-auto mt-12 max-w-screen-md'>
         <Note>
           * 쿠키런 크리스탈 기댓값 시뮬레이션은{' '}
           <a
-            href="https://cookierun.zendesk.com/hc/ko/articles/28813434627993-%EC%83%81%EC%84%B8%EC%A0%95%EB%B3%B4"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline"
+            href='https://cookierun.zendesk.com/hc/ko/articles/28813434627993-%EC%83%81%EC%84%B8%EC%A0%95%EB%B3%B4'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='underline'
           >
             쿠키런 고객센터에 공개된 확률정보
           </a>
@@ -57,7 +60,7 @@ export default function Layout({ children }: LayoutProps) {
         </Note>
       </div>
 
-      <div className="mt-5">
+      <div className='mt-8'>
         <KakaoAdfit adUnit={'DAN-F0gt5sOnJ8XI8YL6'} adSize={['300', '250']} />
       </div>
     </>

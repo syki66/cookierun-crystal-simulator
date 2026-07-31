@@ -13,7 +13,7 @@ import Inventory from '@/components/inventory';
 import { inventoryProps } from '@/types/inventory';
 import { splitArrayByCrystalKeyword } from '@/lib/split';
 import DashboardCard from '@/components/crystal-chart/dashboard-card';
-import { Box, Boxes } from 'lucide-react';
+import { Box, Boxes, Sparkles } from 'lucide-react';
 import GachaResultBox from '@/components/gacha-result-box';
 
 export default function Page() {
@@ -25,9 +25,10 @@ export default function Page() {
   useEffect(() => {
     if (multiCount > 0) {
       const items = multiGachaMachine();
-      const updatedInventory = updateInventory(items, inventory);
 
-      setInventory(updatedInventory);
+      setInventory((currentInventory) =>
+        updateInventory(items, currentInventory)
+      );
       setPickedItems(items);
     }
   }, [multiCount]);
@@ -35,17 +36,31 @@ export default function Page() {
   useEffect(() => {
     if (singleCount > 0) {
       const item = singleGachaMachine();
-      const updatedInventory = updateInventory(item, inventory);
 
-      setInventory(updatedInventory);
+      setInventory((currentInventory) =>
+        updateInventory(item, currentInventory)
+      );
       setPickedItems(item);
     }
   }, [singleCount]);
 
   return (
-    <>
-      <div className="max-w-screen-2xl mx-auto">
-        <div className="grid gap-6 grid-cols-2 md:w-[750px] mx-auto">
+    <div className="mx-auto max-w-screen-xl pb-8">
+      <section className="game-panel p-3 sm:p-6">
+        <div className="mb-6 text-center">
+          <span className="game-kicker">
+            <Sparkles className="mr-1 size-3.5" />
+            OPEN THE BOX
+          </span>
+          <h2 className="game-heading mt-4 text-2xl sm:text-3xl">
+            어떤 보물상자를 열까요?
+          </h2>
+          <p className="mt-2 break-keep text-sm font-medium text-amber-900/60">
+            획득한 보물과 사용한 크리스탈은 아래에 차곡차곡 기록됩니다.
+          </p>
+        </div>
+
+        <div className="mx-auto grid max-w-[750px] grid-cols-2 gap-3 sm:gap-6">
           <DashboardCard
             title="보물상자 1개"
             subtext={`소요 크리스탈: ${(singleCount * 25).toLocaleString()}개`}
@@ -62,52 +77,52 @@ export default function Page() {
             icon={Boxes}
           />
         </div>
-        <div className="grid gap-6 grid-cols-2 md:w-[750px] mx-auto mb-10">
+        <div className="mx-auto mb-8 grid max-w-[750px] grid-cols-2 gap-3 sm:gap-6">
           <Button
-            type="submit"
-            className="w-full h-16 my-10 select-none text-white text-2xl md:text-4xl bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 hover:from-purple-500 hover:via-pink-600 hover:to-red-600"
+            type="button"
+            variant="secondary"
+            className="my-7 h-16 w-full select-none text-lg sm:text-2xl"
             onClick={() => {
               setSingleCount((prev) => prev + 1);
             }}
           >
+            <Box className="size-5 sm:size-6" />
             1개 뽑기
           </Button>
           <Button
-            type="submit"
-            className="w-full h-16 my-10 select-none text-white text-2xl md:text-4xl bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 hover:from-purple-500 hover:via-pink-600 hover:to-red-600"
+            type="button"
+            className="game-action my-7 h-16 w-full select-none text-lg sm:text-2xl"
             onClick={() => {
               setMultiCount((prev) => prev + 1);
             }}
           >
+            <Boxes className="size-5 sm:size-6" />
             6+1개 뽑기
           </Button>
         </div>
 
         {pickedItems.length > 0 && (
-          <>
-            <GachaResultBox>
-              {pickedItems.map((name, index) => (
-                <Fragment key={`${name}-${index}`}>
-                  {name.includes('크리스탈') ? (
-                    <SpecialCard
-                      name={name}
-                      count={1}
-                      expectedValue={
-                        inventory.find((x) => x.name === name)?.expectedValue ??
-                        0
-                      }
-                    />
-                  ) : (
-                    <RegularCard name={name} count={1} />
-                  )}
-                </Fragment>
-              ))}
-            </GachaResultBox>
-          </>
+          <GachaResultBox>
+            {pickedItems.map((name, index) => (
+              <Fragment key={`${name}-${index}`}>
+                {name.includes('크리스탈') ? (
+                  <SpecialCard
+                    name={name}
+                    count={1}
+                    expectedValue={
+                      inventory.find((x) => x.name === name)?.expectedValue ?? 0
+                    }
+                  />
+                ) : (
+                  <RegularCard name={name} count={1} />
+                )}
+              </Fragment>
+            ))}
+          </GachaResultBox>
         )}
 
         <Inventory items={splitArrayByCrystalKeyword(inventory)} />
-      </div>
-    </>
+      </section>
+    </div>
   );
 }
