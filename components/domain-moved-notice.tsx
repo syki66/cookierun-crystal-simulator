@@ -55,7 +55,7 @@ export default function DomainMovedNotice({
 
         <div className="mx-auto mb-6 mt-2 flex size-28 items-center justify-center rounded-[2rem] border-[3px] border-[#4f2d22] bg-[#def8fd] shadow-[0_6px_0_#3f9bb1]">
           <Image
-            src="/branding/crystal-mark.webp"
+            src="/branding/crystal-mark-v2.webp"
             alt=""
             width={96}
             height={96}

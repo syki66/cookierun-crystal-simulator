@@ -12,7 +12,7 @@ const Header = () => {
         >
           <span className="rounded-2xl border-2 border-amber-200 bg-amber-50/95 p-1 shadow-[0_4px_0_#d97706] transition-transform group-hover:-rotate-3 group-hover:scale-105">
             <Image
-              src="/branding/crystal-mark.webp"
+              src="/branding/crystal-mark-v2.webp"
               alt=""
               width={48}
               height={48}
