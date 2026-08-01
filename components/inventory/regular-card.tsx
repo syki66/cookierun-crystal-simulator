@@ -9,16 +9,25 @@ import { getGradeByName } from '@/lib/gacha';
 interface RegularCardProps {
   name: string;
   count: number;
+  compact?: boolean;
 }
 
-const RegularCard: React.FC<RegularCardProps> = ({ name, count }) => {
+const RegularCard: React.FC<RegularCardProps> = ({
+  name,
+  count,
+  compact = false,
+}) => {
   const grade = getGradeByName(name);
   const isSGrade = grade === 'S';
   const isAGrade = grade === 'A';
 
   return (
     <Card
-      className={`group relative h-28 w-[calc(33.333%_-_0.5rem)] min-w-[5.25rem] max-w-28 overflow-hidden rounded-[1.35rem] border-[3px] bg-[#fff5db] text-[#5a321f] transition-all duration-200 hover:-translate-y-1 ${
+      className={`group relative h-28 max-w-28 overflow-hidden rounded-[1.35rem] border-[3px] bg-[#fff5db] text-[#5a321f] transition-all duration-200 hover:-translate-y-1 ${
+        compact
+          ? 'w-[calc(33.333%_-_0.333rem)] min-w-0 sm:w-[calc(33.333%_-_0.5rem)] sm:min-w-[5.25rem]'
+          : 'w-[calc(33.333%_-_0.5rem)] min-w-[5.25rem]'
+      } ${
         isSGrade
           ? 'border-[#a75031] shadow-[0_6px_0_#a75031,0_10px_18px_rgba(142,66,38,0.2)]'
           : isAGrade

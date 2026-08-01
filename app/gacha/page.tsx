@@ -114,7 +114,7 @@ export default function Page() {
                     }
                   />
                 ) : (
-                  <RegularCard name={name} count={1} />
+                  <RegularCard name={name} count={1} compact />
                 )}
               </Fragment>
             ))}

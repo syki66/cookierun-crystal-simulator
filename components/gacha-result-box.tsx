@@ -18,7 +18,7 @@ export default function GachaResultBox({ children }: GachaResultBoxProps) {
         aria-hidden="true"
         className="absolute -bottom-8 -right-5 size-28 rounded-full border-[12px] border-[#dc8659]/40 bg-[#f3c45d]"
       />
-      <div className="relative flex h-full flex-col justify-center rounded-[1.75rem] border-2 border-[#f6d37c] bg-[#fff2d3] p-4 sm:p-7">
+      <div className="relative flex h-full flex-col justify-center rounded-[1.75rem] border-2 border-[#f6d37c] bg-[#fff2d3] p-2 sm:p-7">
         <div className="mb-6 text-center">
           <h2
             id="gacha-result-title"
@@ -42,7 +42,7 @@ export default function GachaResultBox({ children }: GachaResultBoxProps) {
             반짝이는 새 보물이 도착했어요!
           </p>
         </div>
-        <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+        <div className="mb-1.5 flex flex-wrap justify-center gap-x-2 gap-y-4 sm:mb-0 sm:gap-6">
           {children}
         </div>
       </div>

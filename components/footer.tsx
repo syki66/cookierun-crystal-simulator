@@ -21,7 +21,7 @@ export default function Footer() {
           <span className="flex size-11 shrink-0 items-center justify-center rounded-full border-[3px] border-[#4f2d22] bg-[#d99847] shadow-[0_4px_0_#9a5a25]">
             <Cookie aria-hidden="true" className="size-6 text-[#fff1c6]" />
           </span>
-          <span className="text-sm font-bold leading-6 text-[#76503c]">
+          <span className="whitespace-nowrap text-sm font-bold leading-6 text-[#76503c]">
             © {new Date().getFullYear()}{' '}
             <a
               href="https://pokugi.com/"
@@ -29,11 +29,11 @@ export default function Footer() {
             >
               Pokugi Studio
             </a>
-            <span className="block sm:inline">. All rights reserved.</span>
+            <span>. All rights reserved.</span>
           </span>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-row-reverse items-center gap-3 sm:flex-row">
           <span className="text-xs font-black tracking-[0.12em] text-[#936029]">
             우체통
           </span>

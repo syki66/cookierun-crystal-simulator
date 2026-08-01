@@ -1,3 +1,5 @@
+'use client';
+
 import { CartesianGrid, Legend, Line, LineChart, XAxis, YAxis } from 'recharts';
 
 import {
@@ -14,6 +16,7 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart';
 import { Gem } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 const chartConfig = {
   crystals: {
@@ -27,6 +30,18 @@ type CrystalChartProp = {
 };
 
 export default function CrystalChart({ chartData }: CrystalChartProp) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 639px)');
+    const updateIsMobile = () => setIsMobile(mediaQuery.matches);
+
+    updateIsMobile();
+    mediaQuery.addEventListener('change', updateIsMobile);
+
+    return () => mediaQuery.removeEventListener('change', updateIsMobile);
+  }, []);
+
   return (
     <Card className="overflow-hidden rounded-[2rem] border-[3px] border-[#704027] bg-[#fff3d6] text-[#5a321f] shadow-[0_8px_0_#9e6835,0_15px_30px_rgba(101,56,31,0.16)]">
       <CardHeader className="relative items-center border-b-2 border-[#e1b866] bg-[#ffe8ae] px-4 py-5 text-center sm:px-6 sm:py-6">
@@ -66,7 +81,12 @@ export default function CrystalChart({ chartData }: CrystalChartProp) {
               axisLine={false}
               tickMargin={8}
             />
-            <YAxis tickLine={false} axisLine={false} tickMargin={6} />
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              tickMargin={isMobile ? 4 : 6}
+              width={isMobile ? 48 : 60}
+            />
             <ChartTooltip
               cursor={false}
               content={
@@ -80,6 +100,12 @@ export default function CrystalChart({ chartData }: CrystalChartProp) {
               stroke="var(--color-crystals)"
               strokeWidth={4}
               dot={false}
+              activeDot={{
+                r: 7,
+                fill: '#e85462',
+                stroke: '#fff9e9',
+                strokeWidth: 3,
+              }}
               name="기댓값"
               strokeLinecap="round"
               strokeLinejoin="round"
